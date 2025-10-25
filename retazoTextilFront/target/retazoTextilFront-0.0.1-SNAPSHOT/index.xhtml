@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Login</title>
+    <style>
+        /* fondo ligero y centrar */
+        body, html { height:100%; margin:0; background: #f4f7fa; }
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height:100%;
+        }
+        /* panel de PrimeFaces override */
+        .login-panel {
+            width: 320px;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+        }
+        /* espaciado interno */
+        .login-panel .ui-panel-content {
+            padding: 2rem;
+        }
+        /* campos al 100% */
+        .login-panel .ui-inputfield {
+            width: 100% !important;
+        }
+        /* título más pequeño y espaciado */
+        .login-panel .ui-panel-titlebar {
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        /* área de botones */
+        .login-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .login-actions .ui-button {
+            flex: 1;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="login-wrapper">
+        <h:form prependId="false">
+            <p:panel header="Iniciar Sesión" styleClass="login-panel">
+                <p:messages id="msgs" autoUpdate="true" closable="true" showDetail="true"/>
+
+                <h:panelGrid columns="1" columnClasses="field" cellpadding="5">
+                    <p:inputText id="username" value="#{UserBean.username}"
+                                 required="true" label="Username"
+                                 placeholder="Usuario"
+                                 tooltip="Introduce tu usuario"/>
+
+                    <p:password id="password" value="#{UserBean.password}"
+                                required="true" label="Password"
+                                placeholder="Contraseña"
+                                tooltip="Introduce tu contraseña"/>
+                </h:panelGrid>
+
+                <div class="login-actions">
+                    <p:commandButton value="Login"
+                                     action="#{UserBean.login}"
+                                     icon="pi pi-sign-in"
+                                     process="@form"
+                                     update="msgs"
+                                     styleClass="ui-button-primary"
+                                     ajax="false"/>
+
+                    <p:button value="Register"
+                              outcome="register.xhtml"
+                              icon="pi pi-user-plus"
+                              styleClass="ui-button-outlined"/>
+                </div>
+            </p:panel>
+        </h:form>
+    </div>
+</h:body>
+</html>
