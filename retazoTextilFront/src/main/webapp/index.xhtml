@@ -6,201 +6,85 @@
 <h:head>
     <title>Retazo Textil</title>
     <style>
-        /* Variables CSS */
-        :root {
-            --primary: #2c3e50;
-            --secondary: #e74c3c;
-            --accent: #3498db;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #27ae60;
-            --warning: #f39c12;
-        }
-        
-        /* Reset y base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body, html {
-            height: 100%;
-            margin: 0;
+        /* fondo ligero y centrar */
+        body, html { 
+            height:100%; 
+            margin:0; 
+            background: #f4f7fa; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow-x: hidden;
         }
-        
-        /* Contenedor principal */
-        .welcome-container {
-            min-height: 100vh;
+        .login-wrapper {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 2rem;
-            color: white;
+            justify-content: center;
+            height:100%;
+            flex-direction: column;
             text-align: center;
+            padding: 2rem;
         }
-        
-        /* Logo y título */
-        .logo {
-            margin-bottom: 2rem;
-        }
-        
-        .logo-icon {
-            font-size: 4rem;
-            color: white;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5);
-        }
-        
         .welcome-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #ffffff, #f8f9fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .welcome-subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-        
-        /* Botón de ingreso */
-        .enter-btn {
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
-            color: white;
-            border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            background: linear-gradient(45deg, var(--accent), var(--secondary));
-        }
-        
-        /* Efectos decorativos */
-        .fabric-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(45deg, transparent 49%, rgba(255,255,255,0.1) 50%, transparent 51%),
-                linear-gradient(-45deg, transparent 49%, rgba(255,255,255,0.1) 50%, transparent 51%);
-            background-size: 50px 50px;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        
-        /* Features section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            max-width: 1000px;
-        }
-        
-        .feature-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .feature-icon {
             font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
             margin-bottom: 1rem;
         }
-        
-        .feature-title {
+        .welcome-subtitle {
             font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+        /* panel de PrimeFaces override */
+        .login-panel {
+            width: 320px;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+        }
+        /* espaciado interno */
+        .login-panel .ui-panel-content {
+            padding: 2rem;
+        }
+        /* título más pequeño y espaciado */
+        .login-panel .ui-panel-titlebar {
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-align: center;
+            background: #2c3e50 !important;
+            color: white !important;
+        }
+        /* área de botones */
+        .login-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .login-actions .ui-button {
+            flex: 1;
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .welcome-title {
-                font-size: 2.5rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .enter-btn {
-                padding: 0.8rem 2rem;
-                font-size: 1.1rem;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
+        .enter-btn {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1.1rem;
         }
     </style>
 </h:head>
 <h:body>
-    <div class="fabric-pattern"></div>
-    <div class="welcome-container">
-        <div class="logo">
-            <div class="logo-icon">🧵</div>
-            <h1 class="welcome-title">BIENVENIDOS A RETAZO TEXTIL</h1>
-        </div>
-        
+    <div class="login-wrapper">
+        <h1 class="welcome-title">BIENVENIDOS A RETAZO TEXTIL</h1>
         <p class="welcome-subtitle">
-            Sistema integral de gestión textil. Control de ventas, inventario, empleados y clientes en una sola plataforma.
+            Sistema integral de gestión textil. Control de ventas, inventario, 
+            empleados y clientes en una sola plataforma.
         </p>
         
-        <!-- Botón corregido - navegación directa sin beans -->
         <h:form>
-            <p:button value="INGRESAR AL SISTEMA" 
-                      outcome="/login.xhtml" 
-                      styleClass="enter-btn"/>
+            <p:panel header="Acceso al Sistema" styleClass="login-panel">
+                <p:button value="INGRESAR AL SISTEMA" 
+                         outcome="login.xhtml" 
+                         styleClass="ui-button-primary enter-btn"/>
+            </p:panel>
         </h:form>
-        
-        <!-- Sección de características -->
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">👑</div>
-                <div class="feature-title">Administración Completa</div>
-                <p>Gestión de empleados, proveedores y locales</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛒</div>
-                <div class="feature-title">Control de Ventas</div>
-                <p>Seguimiento de productos vendidos y total de ventas</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Reportes Detallados</div>
-                <p>Análisis y estadísticas del negocio textil</p>
-            </div>
-        </div>
     </div>
 </h:body>
 </html>
