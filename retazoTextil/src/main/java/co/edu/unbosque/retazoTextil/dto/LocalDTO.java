@@ -1,27 +1,17 @@
-package co.edu.unbosque.retazoTextil.model;
+package co.edu.unbosque.retazoTextil.dto;
 
-import jakarta.persistence.*;
+public class LocalDTO {
 
-@Entity
-@Table(name = "local")
-public class Local {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "numero_local")
 	private Integer numeroLocal;
 
-	@Column(name = "direccion", nullable = false, length = 100)
 	private String direccion;
 
-	@Column(name = "telefono", nullable = false, length = 20)
 	private Integer telefono;
 
-	public Local() {
+	public LocalDTO() {
 	}
 
-	public Local(String direccion, Integer telefono) {
-		super();
+	public LocalDTO(String direccion, Integer telefono) {
 		this.direccion = direccion;
 		this.telefono = telefono;
 	}

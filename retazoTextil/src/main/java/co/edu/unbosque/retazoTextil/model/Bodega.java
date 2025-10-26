@@ -1,6 +1,6 @@
 package co.edu.unbosque.retazoTextil.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 
@@ -12,10 +12,10 @@ public class Bodega {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "numero_bodega")
-	private Long numeroBodega;
+	private Integer numeroBodega;
 
 	@Column(name = "fecha_compra", nullable = false)
-	private Date fechaCompra;
+	private LocalDate fechaCompra;
 
 	@Column(name = "capacidad", nullable = false)
 	private Integer capacidad;
@@ -23,31 +23,27 @@ public class Bodega {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "local_numero_local", nullable = false, foreignKey = @ForeignKey(name = "fk_bodega_local"))
 	private Local local;
-	
+
 	public Bodega() {
-	
+
 	}
 
-	public Bodega(Date fechaCompra, Integer capacidad, Local local) {
+	public Bodega(LocalDate fechaCompra, Integer capacidad, Local local) {
 		super();
 		this.fechaCompra = fechaCompra;
 		this.capacidad = capacidad;
 		this.local = local;
 	}
 
-	public Long getNumeroBodega() {
+	public Integer getNumeroBodega() {
 		return numeroBodega;
 	}
 
-	public void setNumeroBodega(Long numeroBodega) {
+	public void setNumeroBodega(Integer numeroBodega) {
 		this.numeroBodega = numeroBodega;
 	}
 
-	public Date getFechaCompra() {
-		return fechaCompra;
-	}
-
-	public void setFechaCompra(Date fechaCompra) {
+	public void setFechaCompra(LocalDate fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 
@@ -66,11 +62,5 @@ public class Bodega {
 	public void setLocal(Local local) {
 		this.local = local;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
