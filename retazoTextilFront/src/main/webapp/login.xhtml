@@ -12,6 +12,7 @@
             --accent: #3498db;
             --light: #ecf0f1;
             --dark: #2c3e50;
+            --success: #27ae60;
         }
         
         body, html {
@@ -34,7 +35,7 @@
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             overflow: hidden;
         }
         
@@ -51,49 +52,92 @@
             margin-bottom: 0.5rem;
         }
         
+        .login-subtitle {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+        
         .login-content {
             padding: 2rem;
         }
         
-        .role-buttons {
-            display: grid;
-            gap: 1rem;
+        .user-options {
             margin-bottom: 2rem;
         }
         
-        .role-btn {
+        .user-option {
             background: var(--light);
             border: 2px solid transparent;
             border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
         }
         
-        .role-btn:hover {
+        .user-option:hover {
             border-color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .role-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .user-option.selected {
+            border-color: var(--secondary);
+            background: rgba(231, 76, 60, 0.05);
         }
         
-        .role-name {
+        .user-role {
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 0.5rem;
         }
         
-        .role-desc {
+        .user-credentials {
             font-size: 0.9rem;
             color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .back-btn {
@@ -102,16 +146,7 @@
             color: var(--accent);
             text-decoration: none;
             font-weight: 500;
-            padding: 1rem;
-            border: 2px solid var(--accent);
-            border-radius: 8px;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .back-btn:hover {
-            background: var(--accent);
-            color: white;
+            padding: 0.5rem;
         }
     </style>
 </h:head>
@@ -120,29 +155,61 @@
         <div class="login-card">
             <div class="login-header">
                 <h2 class="login-title">Retazo Textil</h2>
-                <p>Selecciona tu rol para continuar</p>
+                <p class="login-subtitle">Sistema de Gestión Textil</p>
             </div>
             
             <div class="login-content">
-                <div class="role-buttons">
-                    <!-- Vendedor -->
-                    <p:button outcome="login-vendedor.xhtml" styleClass="role-btn">
-                        <div class="role-icon">🧵</div>
-                        <div class="role-name">Iniciar Sesión como Vendedor</div>
-                        <div class="role-desc">Realizar ventas y gestionar clientes</div>
-                    </p:button>
+                <!-- Solo frontend - sin backing beans -->
+                <div class="user-options">
+                    <div class="user-option" onclick="selectUser('vendedor', 'vendedor', '123')">
+                        <div class="user-role">🧵 Vendedor</div>
+                        <div class="user-credentials">Usuario: vendedor | Contraseña: 123</div>
+                        <small>Acceso: Realizar ventas, gestionar clientes</small>
+                    </div>
                     
-                    <!-- Administrador -->
-                    <p:button outcome="login-admin.xhtml" styleClass="role-btn">
-                        <div class="role-icon">👑</div>
-                        <div class="role-name">Iniciar Sesión como Administrador</div>
-                        <div class="role-desc">Gestión completa del sistema</div>
-                    </p:button>
+                    <div class="user-option" onclick="selectUser('empleado', 'empleado', '123')">
+                        <div class="user-role">👨‍💼 Empleado</div>
+                        <div class="user-credentials">Usuario: empleado | Contraseña: 123</div>
+                        <small>Acceso: Módulo administrativo básico</small>
+                    </div>
+                    
+                    <div class="user-option" onclick="selectUser('admin', 'admin', '123')">
+                        <div class="user-role">👑 Administrador</div>
+                        <div class="user-credentials">Usuario: admin | Contraseña: 123</div>
+                        <small>Acceso completo al sistema</small>
+                    </div>
                 </div>
                 
-                <p:button value="← Volver al Inicio" outcome="index.xhtml" styleClass="back-btn"/>
+                <!-- Información demo -->
+                <div style="text-align: center; padding: 1rem; background: #e8f4fd; border-radius: 8px; margin-bottom: 1rem;">
+                    <strong>DEMO:</strong> Haz click en cualquier rol para ver las credenciales
+                </div>
+                
+                <!-- Botones de navegación directa -->
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                    <p:button value="Dashboard Vendedor" outcome="dashboard-vendedor" styleClass="login-btn" style="background: #27ae60 !important;"/>
+                    <p:button value="Dashboard Admin" outcome="dashboard-admin" styleClass="login-btn" style="background: #e74c3c !important;"/>
+                </div>
+                
+                <p:button value="← Volver al Inicio" outcome="index" styleClass="back-btn"/>
             </div>
         </div>
     </div>
+    
+    <script>
+        // Función para seleccionar usuario predefinido
+        function selectUser(role, user, pass) {
+            // Remover selección anterior
+            document.querySelectorAll('.user-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Agregar selección actual
+            event.currentTarget.classList.add('selected');
+            
+            // Mostrar mensaje informativo
+            alert(`Credenciales para ${role}:\nUsuario: ${user}\nContraseña: ${pass}\n\nEn un sistema real, esto autocompletaría el formulario.`);
+        }
+    </script>
 </h:body>
 </html>
