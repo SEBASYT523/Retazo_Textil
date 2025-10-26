@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Login Vendedor - Retazo Textil</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --lila: #8e44ad;
+            --lila-dark: #7d3c98;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .role-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .login-content {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--lila);
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+        }
+        
+        .back-btn {
+            display: block;
+            text-align: center;
+            color: var(--lila);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem;
+            border: 2px solid var(--lila);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: var(--lila);
+            color: white;
+        }
+        
+        .demo-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--lila);
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2 class="login-title">Retazo Textil</h2>
+                <p>Acceso de Vendedor</p>
+                <div class="role-badge">🧵 Vendedor</div>
+            </div>
+            
+            <div class="login-content">
+                <div class="demo-info">
+                    <strong>Credenciales de prueba:</strong><br>
+                    Usuario: vendedor | Contraseña: 123
+                </div>
+                
+                <h:form>
+                    <div class="form-group">
+                        <label class="form-label">Usuario</label>
+                        <p:inputText styleClass="form-input" 
+                                   placeholder="Ingresa tu usuario"
+                                   required="true"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Contraseña</label>
+                        <p:password styleClass="form-input" 
+                                  placeholder="Ingresa tu contraseña"
+                                  required="true"
+                                  feedback="false"/>
+                    </div>
+                    
+                    <p:button value="INICIAR SESIÓN" 
+                             outcome="cliente.xhtml"
+                             styleClass="login-btn"/>
+                </h:form>
+                
+                <p:button value="← Volver" 
+                         outcome="login.xhtml" 
+                         styleClass="back-btn"/>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>
