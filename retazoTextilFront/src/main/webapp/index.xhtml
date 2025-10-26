@@ -6,7 +6,6 @@
 <h:head>
     <title>Retazo Textil</title>
     <style>
-        /* Variables CSS */
         :root {
             --primary: #2c3e50;
             --secondary: #e74c3c;
@@ -34,68 +33,96 @@
         
         /* Contenedor principal */
         .welcome-container {
-            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 2rem;
+        }
+        
+        .welcome-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .welcome-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
+            padding: 2rem;
             text-align: center;
         }
         
-        /* Logo y título */
-        .logo {
-            margin-bottom: 2rem;
-        }
-        
         .logo-icon {
-            font-size: 4rem;
-            color: white;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5);
         }
         
         .welcome-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #ffffff, #f8f9fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
         }
         
         .welcome-subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 3rem;
             opacity: 0.9;
-            max-width: 600px;
-            line-height: 1.6;
+            font-size: 1rem;
         }
         
-        /* Botón de ingreso */
+        .welcome-content {
+            padding: 2rem;
+            text-align: center;
+        }
+        
         .enter-btn {
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 50px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             text-decoration: none;
             display: inline-block;
+            width: 100%;
+            margin-bottom: 1rem;
         }
         
         .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
         }
         
         /* Efectos decorativos */
@@ -113,47 +140,14 @@
             pointer-events: none;
         }
         
-        /* Features section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            max-width: 1000px;
-        }
-        
-        .feature-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
+            .welcome-container {
+                padding: 1rem;
+            }
+            
             .welcome-title {
-                font-size: 2.5rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .enter-btn {
-                padding: 0.8rem 2rem;
-                font-size: 1.1rem;
+                font-size: 1.5rem;
             }
             
             .features {
@@ -165,40 +159,44 @@
 <h:body>
     <div class="fabric-pattern"></div>
     <div class="welcome-container">
-        <div class="logo">
-            <div class="logo-icon">🧵</div>
-            <h1 class="welcome-title">BIENVENIDOS A RETAZO TEXTIL</h1>
-        </div>
-        
-        <p class="welcome-subtitle">
-            Sistema integral de gestión textil. Control de ventas, inventario, empleados y clientes en una sola plataforma.
-        </p>
-        
-        <!-- Botón corregido - navegación directa sin beans -->
-        <h:form>
-            <p:button value="INGRESAR AL SISTEMA" 
-                      outcome="/login.xhtml" 
-                      styleClass="enter-btn"/>
-        </h:form>
-        
-        <!-- Sección de características -->
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">👑</div>
-                <div class="feature-title">Administración Completa</div>
-                <p>Gestión de empleados, proveedores y locales</p>
+        <div class="welcome-card">
+            <div class="welcome-header">
+                <div class="logo-icon">🧵</div>
+                <h1 class="welcome-title">BIENVENIDOS A RETAZO TEXTIL</h1>
+                <p class="welcome-subtitle">Sistema Integral de Gestión Textil</p>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">🛒</div>
-                <div class="feature-title">Control de Ventas</div>
-                <p>Seguimiento de productos vendidos y total de ventas</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Reportes Detallados</div>
-                <p>Análisis y estadísticas del negocio textil</p>
+            <div class="welcome-content">
+                <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6;">
+                    Control de ventas, inventario, empleados y clientes en una sola plataforma.
+                </p>
+                
+                <!-- Botón que lleva al login de selección de rol -->
+                <h:form style="width: 100%;">
+                    <p:button value="INGRESAR AL SISTEMA" 
+                              outcome="login.xhtml" 
+                              styleClass="enter-btn"/>
+                </h:form>
+                
+                <!-- Características del sistema -->
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">👑</div>
+                        <div class="feature-title">Admin</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧵</div>
+                        <div class="feature-title">Vendedor</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Reportes</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <div class="feature-title">Clientes</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
