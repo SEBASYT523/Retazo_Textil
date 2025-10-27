@@ -149,29 +149,30 @@
             
             <div class="login-content">
                 <div class="demo-info">
-                    <strong>Demo:</strong> Solo haz click en el botón para continuar
+                    <strong>Credenciales de prueba:</strong><br>
+                    Usuario: vendedor | Contraseña: 123
                 </div>
                 
-                <!-- Formulario simple sin beans -->
-                <div class="form-group">
-                    <label class="form-label">Usuario</label>
-                    <p:inputText styleClass="form-input" 
-                               placeholder="Usuario demo: vendedor"
-                               required="true"/>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Contraseña</label>
-                    <p:password styleClass="form-input" 
-                              placeholder="Contraseña demo: 123"
-                              required="true"
-                              feedback="false"/>
-                </div>
-                
-                <!-- Navegación directa sin validación -->
-                <p:button value="INICIAR SESIÓN" 
-                         outcome="cliente.xhtml"
-                         styleClass="login-btn"/>
+                <h:form>
+                    <div class="form-group">
+                        <label class="form-label">Usuario</label>
+                        <p:inputText styleClass="form-input" 
+                                   placeholder="Ingresa tu usuario"
+                                   required="true"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Contraseña</label>
+                        <p:password styleClass="form-input" 
+                                  placeholder="Ingresa tu contraseña"
+                                  required="true"
+                                  feedback="false"/>
+                    </div>
+                    
+                    <p:button value="INICIAR SESIÓN" 
+                             outcome="cliente.xhtml"
+                             styleClass="login-btn"/>
+                </h:form>
                 
                 <p:button value="← Volver" 
                          outcome="login.xhtml" 
