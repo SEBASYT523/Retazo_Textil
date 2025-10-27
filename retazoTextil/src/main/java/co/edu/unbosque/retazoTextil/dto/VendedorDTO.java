@@ -2,7 +2,7 @@ package co.edu.unbosque.retazoTextil.dto;
 
 public class VendedorDTO {
 
-	private Long idEmpleado;
+	private Integer idEmpleado;
 
 	private Integer numeroProductosVendidos;
 
@@ -23,11 +23,11 @@ public class VendedorDTO {
 		this.empleadoId = empleado;
 	}
 
-	public Long getIdEmpleado() {
+	public Integer getIdEmpleado() {
 		return idEmpleado;
 	}
 
-	public void setIdEmpleado(Long idEmpleado) {
+	public void setIdEmpleado(Integer idEmpleado) {
 		this.idEmpleado = idEmpleado;
 	}
 

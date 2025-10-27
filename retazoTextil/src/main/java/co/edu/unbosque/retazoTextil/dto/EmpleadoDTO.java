@@ -10,6 +10,7 @@ public class EmpleadoDTO {
 	private String primerNombreEmpleado;
 	private String segundoNombreEmpleado;
 	private String primerApellidoEmpleado;
+	private String contrasenia;
 	private String segundoApellidoEmpleado;
 	private String telefonoEmpleado;
 	private String direccionEmpleado;
@@ -26,10 +27,11 @@ public class EmpleadoDTO {
 	public EmpleadoDTO() {
 	}
 
-	public EmpleadoDTO(String primerNombreEmpleado, String segundoNombreEmpleado, String primerApellidoEmpleado,
-			String segundoApellidoEmpleado, String telefonoEmpleado, String direccionEmpleado, String paisNacimiento,
-			String ciudadNacimiento, LocalDate fechaNacimiento, LocalDate fechaIngreso, BigDecimal salario,
-			List<Integer> ventasIds, Integer administradorId, Integer vendedorId) {
+	public EmpleadoDTO(String primerNombreEmpleado, String contrasenia, String segundoNombreEmpleado,
+			String primerApellidoEmpleado, String segundoApellidoEmpleado, String telefonoEmpleado,
+			String direccionEmpleado, String paisNacimiento, String ciudadNacimiento, LocalDate fechaNacimiento,
+			LocalDate fechaIngreso, BigDecimal salario, List<Integer> ventasIds, Integer administradorId,
+			Integer vendedorId) {
 		this.primerNombreEmpleado = primerNombreEmpleado;
 		this.segundoNombreEmpleado = segundoNombreEmpleado;
 		this.primerApellidoEmpleado = primerApellidoEmpleado;
@@ -44,10 +46,19 @@ public class EmpleadoDTO {
 		this.ventasIds = ventasIds;
 		this.administradorId = administradorId;
 		this.vendedorId = vendedorId;
+		this.contrasenia = contrasenia;
 	}
 
 	public Integer getIdEmpleado() {
 		return idEmpleado;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 	public void setIdEmpleado(Integer idEmpleado) {
