@@ -6,6 +6,7 @@ import co.edu.unbosque.retazoTextil.model.ContactarId;
 import co.edu.unbosque.retazoTextil.model.Proveedor;
 import co.edu.unbosque.retazoTextil.model.Administrador;
 import co.edu.unbosque.retazoTextil.repository.ContactarRepository;
+import co.edu.unbosque.retazoTextil.repository.ProveedorRepository;
 import co.edu.unbosque.retazoTextil.repository.AdministradorRepository;
 
 import java.util.ArrayList;
