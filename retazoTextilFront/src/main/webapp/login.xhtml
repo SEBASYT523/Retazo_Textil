@@ -161,34 +161,32 @@
             
             <div class="login-content">
                 <div class="role-buttons">
-                 <div class="role-buttons">
-    <!-- Vendedor -->
-    <p:button outcome="login-vendedor" styleClass="role-btn">
-        <div class="role-content">
-            <div class="role-info">
-                <div class="role-header">
-                    <div class="role-icon">🧵</div>
-                    <div class="role-name">Vendedor</div>
-                </div>
-                <div class="role-desc">Realizar ventas y gestionar clientes</div>
+                    <!-- Vendedor - Ahora navega a login-vendedor.xhtml -->
+                    <p:button outcome="login-vendedor" styleClass="role-btn" value="Iniciar Sesión">
+    <div class="role-content">
+        <div class="role-info">
+            <div class="role-header">
+                <div class="role-icon">🧵</div>
+                <div class="role-name">Vendedor</div>
             </div>
-            <div class="login-text">Iniciar Sesión</div>
+            <div class="role-desc">Realizar ventas y gestionar clientes</div>
         </div>
-    </p:button>
-    
-    <!-- Administrador -->
-    <p:button outcome="login-admin" styleClass="role-btn">
-        <div class="role-content">
-            <div class="role-info">
-                <div class="role-header">
-                    <div class="role-icon">👑</div>
-                    <div class="role-name">Administrador</div>
-                </div>
-                <div class="role-desc">Gestión completa del sistema</div>
+    </div>
+</p:button>
+                    
+                    <!-- Administrador - Ahora navega a login-admin.xhtml -->
+<p:button outcome="login-admin" styleClass="role-btn">
+    <div class="role-content">
+        <div class="role-info">
+            <div class="role-header">
+                <div class="role-icon">👑</div>
+                <div class="role-name">Administrador</div>
             </div>
-            <div class="login-text">Iniciar Sesión</div>
+            <div class="role-desc">Gestión completa del sistema</div>
         </div>
-    </p:button>
+        <div class="login-text">Iniciar Sesión</div>
+    </div>
+</p:button>
                 
                 <p:button value="← Volver al Inicio" outcome="index.xhtml" styleClass="back-btn"/>
             </div>
