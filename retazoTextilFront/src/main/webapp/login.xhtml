@@ -84,7 +84,7 @@
         .role-content {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
         }
         
         .role-info {
@@ -110,26 +110,15 @@
         
         .role-desc {
             font-size: 0.95rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
             opacity: 0.9;
             line-height: 1.4;
-        }
-        
-        .login-action {
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
         }
         
         .login-text {
             font-weight: 600;
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-arrow {
-            font-size: 1.5rem;
+            text-align: right;
         }
         
         .back-btn {
@@ -161,34 +150,36 @@
             
             <div class="login-content">
                 <div class="role-buttons">
-                    <!-- Vendedor - Ahora navega a login-vendedor.xhtml -->
-                    <p:button outcome="login-vendedor" styleClass="role-btn" value="Iniciar Sesión">
-    <div class="role-content">
-        <div class="role-info">
-            <div class="role-header">
-                <div class="role-icon">🧵</div>
-                <div class="role-name">Vendedor</div>
-            </div>
-            <div class="role-desc">Realizar ventas y gestionar clientes</div>
-        </div>
-    </div>
-</p:button>
+                    <!-- Vendedor -->
+                    <p:button outcome="login-vendedor" styleClass="role-btn">
+                        <div class="role-content">
+                            <div class="role-info">
+                                <div class="role-header">
+                                    <div class="role-icon">🧵</div>
+                                    <div class="role-name">Vendedor</div>
+                                </div>
+                                <div class="role-desc">Realizar ventas y gestionar clientes</div>
+                            </div>
+                            <div class="login-text">Iniciar Sesión</div>
+                        </div>
+                    </p:button>
                     
-                    <!-- Administrador - Ahora navega a login-admin.xhtml -->
-<p:button outcome="login-admin" styleClass="role-btn">
-    <div class="role-content">
-        <div class="role-info">
-            <div class="role-header">
-                <div class="role-icon">👑</div>
-                <div class="role-name">Administrador</div>
-            </div>
-            <div class="role-desc">Gestión completa del sistema</div>
-        </div>
-        <div class="login-text">Iniciar Sesión</div>
-    </div>
-</p:button>
+                    <!-- Administrador -->
+                    <p:button outcome="login-admin" styleClass="role-btn">
+                        <div class="role-content">
+                            <div class="role-info">
+                                <div class="role-header">
+                                    <div class="role-icon">👑</div>
+                                    <div class="role-name">Administrador</div>
+                                </div>
+                                <div class="role-desc">Gestión completa del sistema</div>
+                            </div>
+                            <div class="login-text">Iniciar Sesión</div>
+                        </div>
+                    </p:button>
+                </div>
                 
-                <p:button value="← Volver al Inicio" outcome="index.xhtml" styleClass="back-btn"/>
+                <p:button value="← Volver al Inicio" outcome="index" styleClass="back-btn"/>
             </div>
         </div>
     </div>
