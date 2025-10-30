@@ -12,24 +12,22 @@
             --lila-dark: #7d3c98;
             --accent: #3498db;
             --light: #ecf0f1;
-            --dark: #2c3e50;
             --success: #27ae60;
         }
         
-        body, html {
-            height: 100%;
+        body {
             margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8f9fa;
-            font-family: 'Arial', sans-serif;
         }
         
         .sales-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 250px 1fr;
             min-height: 100vh;
         }
         
         .sidebar {
-            width: 250px;
             background: var(--primary);
             color: white;
             padding: 2rem 1rem;
@@ -69,7 +67,6 @@
         }
         
         .main-content {
-            flex: 1;
             padding: 2rem;
         }
         
@@ -113,6 +110,8 @@
             color: var(--primary);
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
+            border-bottom: 2px solid var(--lila);
+            padding-bottom: 0.5rem;
         }
         
         .products-grid {
@@ -127,12 +126,13 @@
             padding: 1.5rem;
             transition: all 0.3s ease;
             cursor: pointer;
+            background: white;
         }
         
         .product-card:hover {
             border-color: var(--lila);
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
         .product-image {
@@ -159,6 +159,7 @@
             color: #666;
             margin-bottom: 1rem;
             line-height: 1.4;
+            font-size: 0.9rem;
         }
         
         .product-price {
@@ -166,6 +167,17 @@
             font-weight: 700;
             color: var(--lila);
             margin-bottom: 1rem;
+        }
+        
+        .product-stock {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stock-available {
+            color: var(--success);
+            font-weight: 600;
         }
         
         .add-to-cart {
@@ -191,6 +203,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+        
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -208,6 +224,13 @@
             padding-top: 1rem;
             border-top: 2px solid var(--lila);
         }
+        
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+            font-style: italic;
+        }
     </style>
 </h:head>
 <h:body>
@@ -224,7 +247,6 @@
                 <li class="nav-item"><a href="nueva-venta.xhtml" class="nav-link active">🛒 Nueva Venta</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">👥 Clientes</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">📊 Ventas</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">📦 Inventario</a></li>
                 <li class="nav-item"><a href="index.xhtml" class="nav-link">🚪 Cerrar Sesión</a></li>
             </ul>
         </div>
@@ -238,15 +260,16 @@
             
             <!-- Productos Disponibles -->
             <div class="products-section">
-                <h2 class="section-title">Productos Disponibles</h2>
+                <h2 class="section-title">Catálogo de Productos Textiles</h2>
                 
                 <div class="products-grid">
                     <!-- Producto 1 -->
                     <div class="product-card">
                         <div class="product-image">🧵</div>
                         <div class="product-name">Algodón Premium</div>
-                        <div class="product-description">Tela de algodón 100% natural, alta calidad para confección</div>
+                        <div class="product-description">Tela de algodón 100% natural de alta calidad, perfecta para confección de ropa cómoda y durable.</div>
                         <div class="product-price">$24.99 / metro</div>
+                        <div class="product-stock">Stock: <span class="stock-available">150 metros</span></div>
                         <button class="add-to-cart">Agregar al Carrito</button>
                     </div>
                     
@@ -254,8 +277,9 @@
                     <div class="product-card">
                         <div class="product-image">👑</div>
                         <div class="product-name">Seda Natural</div>
-                        <div class="product-description">Seda pura de alta calidad para prendas elegantes</div>
+                        <div class="product-description">Seda pura de alta calidad importada, ideal para prendas elegantes y de lujo.</div>
                         <div class="product-price">$49.99 / metro</div>
+                        <div class="product-stock">Stock: <span class="stock-available">75 metros</span></div>
                         <button class="add-to-cart">Agregar al Carrito</button>
                     </div>
                     
@@ -263,8 +287,9 @@
                     <div class="product-card">
                         <div class="product-image">🌿</div>
                         <div class="product-name">Lino Ecológico</div>
-                        <div class="product-description">Tela de lino sostenible, perfecta para verano</div>
+                        <div class="product-description">Tela de lino sostenible y ecológica, perfecta para prendas de verano y decoración.</div>
                         <div class="product-price">$32.50 / metro</div>
+                        <div class="product-stock">Stock: <span class="stock-available">120 metros</span></div>
                         <button class="add-to-cart">Agregar al Carrito</button>
                     </div>
                     
@@ -272,8 +297,9 @@
                     <div class="product-card">
                         <div class="product-image">👖</div>
                         <div class="product-name">Mezclilla Resistente</div>
-                        <div class="product-description">Denim de alta resistencia para trabajo y moda</div>
+                        <div class="product-description">Denim de alta resistencia, ideal para prendas de trabajo, uniformes y moda casual.</div>
                         <div class="product-price">$28.75 / metro</div>
+                        <div class="product-stock">Stock: <span class="stock-available">200 metros</span></div>
                         <button class="add-to-cart">Agregar al Carrito</button>
                     </div>
                     
@@ -281,8 +307,9 @@
                     <div class="product-card">
                         <div class="product-image">✨</div>
                         <div class="product-name">Tul Decorativo</div>
-                        <div class="product-description">Tul para decoración y vestidos de novia</div>
+                        <div class="product-description">Tul de alta calidad para decoración, vestidos de novia y eventos especiales.</div>
                         <div class="product-price">$18.99 / metro</div>
+                        <div class="product-stock">Stock: <span class="stock-available">90 metros</span></div>
                         <button class="add-to-cart">Agregar al Carrito</button>
                     </div>
                     
@@ -290,8 +317,9 @@
                     <div class="product-card">
                         <div class="product-image">🧶</div>
                         <div class="product-name">Lana Invernal</div>
-                        <div class="product-description">Lana natural para prendas de invierno</div>
+                        <div class="product-description">Lana natural premium para prendas de invierno, suéteres y abrigos de alta calidad.</div>
                         <div class="product-price">$35.25 / metro</div>
+                        <div class="product-stock">Stock: <span class="stock-available">80 metros</span></div>
                         <button class="add-to-cart">Agregar al Carrito</button>
                     </div>
                 </div>
@@ -300,8 +328,11 @@
             <!-- Carrito de Compras -->
             <div class="cart-section">
                 <h2 class="section-title">Carrito de Compras</h2>
-                <div class="cart-item">
-                    <span>Selecciona productos para agregar al carrito</span>
+                <div class="cart-items">
+                    <div class="empty-cart">
+                        🛒 El carrito está vacío<br>
+                        <small>Selecciona productos para agregar al carrito</small>
+                    </div>
                 </div>
                 <div class="cart-total">
                     Total: $0.00

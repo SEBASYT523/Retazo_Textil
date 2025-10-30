@@ -4,32 +4,30 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Menú Vendedor - Retazo Textil</title>
+    <title>Vendedor - Retazo Textil</title>
     <style>
         :root {
             --primary: #2c3e50;
-            --lila: #8e44ad;
-            --lila-dark: #7d3c98;
+            --secondary: #e74c3c;
             --accent: #3498db;
             --light: #ecf0f1;
-            --dark: #2c3e50;
             --success: #27ae60;
+            --lila: #8e44ad;
         }
         
-        body, html {
-            height: 100%;
+        body {
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
         }
         
-        .dashboard-container {
-            display: flex;
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
             min-height: 100vh;
         }
         
         .sidebar {
-            width: 250px;
             background: var(--primary);
             color: white;
             padding: 2rem 1rem;
@@ -77,14 +75,71 @@
             transition: background 0.3s ease;
         }
         
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover {
             background: var(--lila);
         }
         
         .main-content {
-            flex: 1;
             padding: 2rem;
-            background: #f8f9fa;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .action-btn {
+            background: white;
+            border: 2px solid var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .action-btn:hover {
+            border-color: var(--lila);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--lila);
         }
         
         .header {
@@ -92,17 +147,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
-        }
-        
-        .welcome-message h1 {
-            color: var(--primary);
-            margin: 0;
-            font-size: 2rem;
-        }
-        
-        .welcome-message p {
-            color: #666;
-            margin: 0.5rem 0 0 0;
         }
         
         .logout-btn {
@@ -115,73 +159,11 @@
             text-decoration: none;
             font-weight: 600;
         }
-        
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .action-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .action-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--lila);
-        }
-        
-        .action-title {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--lila);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-weight: 500;
-        }
     </style>
 </h:head>
+
 <h:body>
-    <div class="dashboard-container">
+    <div class="dashboard">
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
@@ -196,11 +178,10 @@
             </div>
             
             <ul class="nav-menu">
-                <li class="nav-item"><a href="#" class="nav-link active">🏠 Dashboard</a></li>
-                <li class="nav-item"><a href="nueva-venta.xhtml" class="nav-link">🛒 Nueva Venta</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">🏠 Dashboard</a></li>
+                <li class="nav-item"><a href="nueva-venta.xhtml" class="nav-link">🛒 Realizar Venta</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">👥 Clientes</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">📊 Ventas</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">📦 Inventario</a></li>
                 <li class="nav-item"><a href="index.xhtml" class="nav-link">🚪 Cerrar Sesión</a></li>
             </ul>
         </div>
@@ -208,10 +189,7 @@
         <!-- Contenido Principal -->
         <div class="main-content">
             <div class="header">
-                <div class="welcome-message">
-                    <h1>Bienvenido, Juan Pérez</h1>
-                    <p>Panel de control del vendedor - Retazo Textil</p>
-                </div>
+                <h1>Dashboard del Vendedor</h1>
                 <p:button value="Cerrar Sesión" outcome="index.xhtml" styleClass="logout-btn"/>
             </div>
             
@@ -236,30 +214,23 @@
             </div>
             
             <!-- Acciones Rápidas -->
-            <h2 style="color: var(--primary); margin-bottom: 1rem;">Acciones Rápidas</h2>
+            <h2>Acciones Rápidas</h2>
             <div class="actions-grid">
-                <p:button outcome="nueva-venta.xhtml" styleClass="action-card">
-                    <div class="action-icon">🛒</div>
-                    <div class="action-title">Nueva Venta</div>
-                    <div>Realizar una nueva venta</div>
+                <p:button outcome="nueva-venta.xhtml" styleClass="action-btn">
+                    <div class="btn-icon">🛒</div>
+                    <div>Nueva Venta</div>
                 </p:button>
-                
-                <a href="#" class="action-card">
-                    <div class="action-icon">👥</div>
-                    <div class="action-title">Gestionar Clientes</div>
-                    <div>Administrar clientes</div>
+                <a href="#" class="action-btn">
+                    <div class="btn-icon">👥</div>
+                    <div>Gestionar Clientes</div>
                 </a>
-                
-                <a href="#" class="action-card">
-                    <div class="action-icon">📊</div>
-                    <div class="action-title">Ver Reportes</div>
-                    <div>Reportes de ventas</div>
+                <a href="#" class="action-btn">
+                    <div class="btn-icon">📊</div>
+                    <div>Ver Reportes</div>
                 </a>
-                
-                <a href="#" class="action-card">
-                    <div class="action-icon">📦</div>
-                    <div class="action-title">Inventario</div>
-                    <div>Control de stock</div>
+                <a href="#" class="action-btn">
+                    <div class="btn-icon">📦</div>
+                    <div>Inventario</div>
                 </a>
             </div>
         </div>
