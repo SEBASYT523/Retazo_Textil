@@ -8,11 +8,11 @@ public interface CRUDOperation<T> {
 
 	public List<T> getAll();
 
-	public int deleteByUsername(String username);
+	public int deleteById(Integer username);
 
-	public int updateByUsername(String username, T newData);
+	public int updateById(Integer username, T newData);
 
 	public long count();
 
-	public boolean exist(String username);
+	public boolean exist(Integer username);
 }

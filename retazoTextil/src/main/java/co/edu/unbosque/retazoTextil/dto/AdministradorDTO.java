@@ -1,7 +1,8 @@
 package co.edu.unbosque.retazoTextil.dto;
 
-import java.time.LocalDate;
 import java.util.List;
+
+import co.edu.unbosque.retazoTextil.model.ContactarId;
 
 public class AdministradorDTO {
 
@@ -9,29 +10,23 @@ public class AdministradorDTO {
 
 	private Integer numeroCubiculo;
 
-	private LocalDate fechaSolicitud;
-
-	private LocalDate fechaEntrega;
-
 	private List<Integer> proveedoresId;
 
-	private List<Integer> contactosId;
+	private List<ContactarId> contactosId;
 
 	public AdministradorDTO() {
 	}
 
-	public AdministradorDTO(Integer numeroCubiculo, LocalDate fechaSolicitud, LocalDate fechaEntrega) {
+	public AdministradorDTO(Integer numeroCubiculo) {
 		this.numeroCubiculo = numeroCubiculo;
-		this.fechaSolicitud = fechaSolicitud;
-		this.fechaEntrega = fechaEntrega;
+
 	}
 
-	public AdministradorDTO(Integer numeroCubiculo, LocalDate fechaSolicitud, LocalDate fechaEntrega,
-			List<Integer> proveedoresId, List<Integer> contactosId) {
+	public AdministradorDTO(Integer numeroCubiculo,
+			List<Integer> proveedoresId, List<ContactarId> contactosId) {
 		super();
 		this.numeroCubiculo = numeroCubiculo;
-		this.fechaSolicitud = fechaSolicitud;
-		this.fechaEntrega = fechaEntrega;
+
 		this.proveedoresId = proveedoresId;
 		this.contactosId = contactosId;
 	}
@@ -42,22 +37,6 @@ public class AdministradorDTO {
 
 	public void setNumeroCubiculo(Integer numeroCubiculo) {
 		this.numeroCubiculo = numeroCubiculo;
-	}
-
-	public LocalDate getFechaSolicitud() {
-		return fechaSolicitud;
-	}
-
-	public void setFechaSolicitud(LocalDate fechaSolicitud) {
-		this.fechaSolicitud = fechaSolicitud;
-	}
-
-	public LocalDate getFechaEntrega() {
-		return fechaEntrega;
-	}
-
-	public void setFechaEntrega(LocalDate fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
 	}
 
 	public Integer getIdEmpleado() {
@@ -76,11 +55,11 @@ public class AdministradorDTO {
 		this.proveedoresId = proveedoresId;
 	}
 
-	public List<Integer> getContactosId() {
+	public List<ContactarId> getContactosId() {
 		return contactosId;
 	}
 
-	public void setContactosId(List<Integer> contactosId) {
+	public void setContactosId(List<ContactarId> contactosId) {
 		this.contactosId = contactosId;
 	}
 

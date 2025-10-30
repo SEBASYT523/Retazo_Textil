@@ -1,50 +1,60 @@
 package co.edu.unbosque.retazoTextil.dto;
 
-
-import java.time.LocalDate;
 import java.util.List;
 
+import co.edu.unbosque.retazoTextil.model.ContactarId;
 
 public class ProveedorDTO {
 
-    private Integer idProveedor;
+	private Integer idProveedor;
 
-    private String primerNombreProveedor;
+	private String primerNombreProveedor;
 
-    private String segundoNombreProveedor;
+	private String segundoNombreProveedor;
 
-    private String primerApellidoProveedor;
+	private String primerApellidoProveedor;
 
-    private String segundoApellidoProveedor;
+	private String segundoApellidoProveedor;
 
-    private String telefono;
+	private String telefono;
 
-    private String ciudad;
+	private String ciudad;
 
-    private String pais;
+	private String pais;
 
-    private LocalDate fechaSolicitud;
+	private Integer administradorId;
 
-    private LocalDate fechaEntrega;
+	private List<Integer> productosId;
 
-   
-    private Integer administradorId;
+	private List<ContactarId> contactosId;
 
-    private List<Integer> productosId;
+	public ProveedorDTO() {
+	}
 
-    private List<Integer> contactosId;
+	public ProveedorDTO(String primerNombreProveedor, String primerApellidoProveedor, String telefono, String pais,
+			Integer administradorId) {
+		this.primerNombreProveedor = primerNombreProveedor;
+		this.primerApellidoProveedor = primerApellidoProveedor;
+		this.telefono = telefono;
+		this.pais = pais;
+		this.administradorId = administradorId;
+	}
 
-    public ProveedorDTO() {}
-
-    public ProveedorDTO(String primerNombreProveedor, String primerApellidoProveedor, String telefono, String pais, LocalDate fechaSolicitud, LocalDate fechaEntrega, Integer administradorId) {
-        this.primerNombreProveedor = primerNombreProveedor;
-        this.primerApellidoProveedor = primerApellidoProveedor;
-        this.telefono = telefono;
-        this.pais = pais;
-        this.fechaSolicitud = fechaSolicitud;
-        this.fechaEntrega = fechaEntrega;
-        this.administradorId = administradorId;
-    }
+	public ProveedorDTO(String primerNombreProveedor, String segundoNombreProveedor, String primerApellidoProveedor,
+			String segundoApellidoProveedor, String telefono, String ciudad, String pais, Integer administradorId,
+			List<Integer> productosId, List<ContactarId> contactosId) {
+		super();
+		this.primerNombreProveedor = primerNombreProveedor;
+		this.segundoNombreProveedor = segundoNombreProveedor;
+		this.primerApellidoProveedor = primerApellidoProveedor;
+		this.segundoApellidoProveedor = segundoApellidoProveedor;
+		this.telefono = telefono;
+		this.ciudad = ciudad;
+		this.pais = pais;
+		this.administradorId = administradorId;
+		this.productosId = productosId;
+		this.contactosId = contactosId;
+	}
 
 	public Integer getIdProveedor() {
 		return idProveedor;
@@ -110,22 +120,6 @@ public class ProveedorDTO {
 		this.pais = pais;
 	}
 
-	public LocalDate getFechaSolicitud() {
-		return fechaSolicitud;
-	}
-
-	public void setFechaSolicitud(LocalDate fechaSolicitud) {
-		this.fechaSolicitud = fechaSolicitud;
-	}
-
-	public LocalDate getFechaEntrega() {
-		return fechaEntrega;
-	}
-
-	public void setFechaEntrega(LocalDate fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
-	}
-
 	public Integer getInteger() {
 		return administradorId;
 	}
@@ -142,13 +136,12 @@ public class ProveedorDTO {
 		this.productosId = productosId;
 	}
 
-	public List<Integer> getContactos() {
+	public List<ContactarId> getContactos() {
 		return contactosId;
 	}
 
-	public void setContactos(List<Integer> contactosId) {
+	public void setContactos(List<ContactarId> contactosId) {
 		this.contactosId = contactosId;
 	}
-    
-    
+
 }

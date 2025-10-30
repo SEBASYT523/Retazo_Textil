@@ -1,67 +1,59 @@
 package co.edu.unbosque.retazoTextil.model;
 
-
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "proveedor")
 public class Proveedor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_proveedor")
-    private Integer idProveedor;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_proveedor")
+	private Integer idProveedor;
 
-    @Column(name = "primer_nombre_proveedor", nullable = false, length = 30)
-    private String primerNombreProveedor;
+	@Column(name = "primer_nombre_proveedor", nullable = false, length = 30)
+	private String primerNombreProveedor;
 
-    @Column(name = "segundo_nombre_proveedor", length = 30)
-    private String segundoNombreProveedor;
+	@Column(name = "segundo_nombre_proveedor", length = 30)
+	private String segundoNombreProveedor;
 
-    @Column(name = "primer_apellido_proveedor", nullable = false, length = 30)
-    private String primerApellidoProveedor;
+	@Column(name = "primer_apellido_proveedor", nullable = false, length = 30)
+	private String primerApellidoProveedor;
 
-    @Column(name = "segundo_apellido_proveedor", length = 30)
-    private String segundoApellidoProveedor;
+	@Column(name = "segundo_apellido_proveedor", length = 30)
+	private String segundoApellidoProveedor;
 
-    @Column(name = "telefono", nullable = false, length = 20)
-    private String telefono;
+	@Column(name = "telefono", nullable = false, length = 20)
+	private String telefono;
 
-    @Column(name = "ciudad", length = 30)
-    private String ciudad;
+	@Column(name = "ciudad", length = 30)
+	private String ciudad;
 
-    @Column(name = "pais", nullable = false, length = 30)
-    private String pais;
+	@Column(name = "pais", nullable = false, length = 30)
+	private String pais;
 
-    @Column(name = "fecha_solicitud", nullable = false)
-    private LocalDate fechaSolicitud;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "administrador_numero_cubiculo", nullable = false)
+	private Administrador administrador;
 
-    @Column(name = "fecha_entrega", nullable = false)
-    private LocalDate fechaEntrega;
+	@OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Producto> productos;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "administrador_numero_cubiculo", nullable = false)
-    private Administrador administrador;
+	@OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Contactar> contactos;
 
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Producto> productos;
+	public Proveedor() {
+	}
 
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Contactar> contactos;
-
-    public Proveedor() {}
-
-    public Proveedor(String primerNombreProveedor, String primerApellidoProveedor, String telefono, String pais, LocalDate fechaSolicitud, LocalDate fechaEntrega, Administrador administrador) {
-        this.primerNombreProveedor = primerNombreProveedor;
-        this.primerApellidoProveedor = primerApellidoProveedor;
-        this.telefono = telefono;
-        this.pais = pais;
-        this.fechaSolicitud = fechaSolicitud;
-        this.fechaEntrega = fechaEntrega;
-        this.administrador = administrador;
-    }
+	public Proveedor(String primerNombreProveedor, String primerApellidoProveedor, String telefono, String pais,
+			Administrador administrador) {
+		this.primerNombreProveedor = primerNombreProveedor;
+		this.primerApellidoProveedor = primerApellidoProveedor;
+		this.telefono = telefono;
+		this.pais = pais;
+		this.administrador = administrador;
+	}
 
 	public Integer getIdProveedor() {
 		return idProveedor;
@@ -127,22 +119,6 @@ public class Proveedor {
 		this.pais = pais;
 	}
 
-	public LocalDate getFechaSolicitud() {
-		return fechaSolicitud;
-	}
-
-	public void setFechaSolicitud(LocalDate fechaSolicitud) {
-		this.fechaSolicitud = fechaSolicitud;
-	}
-
-	public LocalDate getFechaEntrega() {
-		return fechaEntrega;
-	}
-
-	public void setFechaEntrega(LocalDate fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
-	}
-
 	public Administrador getAdministrador() {
 		return administrador;
 	}
@@ -166,6 +142,5 @@ public class Proveedor {
 	public void setContactos(List<Contactar> contactos) {
 		this.contactos = contactos;
 	}
-    
-    
+
 }
