@@ -102,7 +102,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem; /* Aumentado el espacio inferior */
         }
         
         .login-btn:hover {
@@ -120,6 +120,8 @@
             border: 2px solid var(--lila);
             border-radius: 8px;
             transition: all 0.3s ease;
+            background: white;
+            margin-top: 1rem; /* Añadido espacio superior */
         }
         
         .back-btn:hover {
@@ -135,6 +137,11 @@
             text-align: center;
             font-size: 0.9rem;
             border-left: 4px solid var(--lila);
+        }
+        
+        /* Contenedor para los botones con más separación */
+        .buttons-container {
+            margin-top: 1.5rem;
         }
     </style>
 </h:head>
@@ -170,13 +177,15 @@
                     </div>
                     
                     <p:button value="INICIAR SESIÓN" 
-                             outcome="admin.xhtml"
+                             outcome="admin"
                              styleClass="login-btn"/>
                 </h:form>
                 
-                <p:button value="← Volver" 
-                         outcome="login.xhtml" 
-                         styleClass="back-btn"/>
+                <div class="buttons-container">
+                    <p:button value="← Volver" 
+                             outcome="index" 
+                             styleClass="back-btn"/>
+                </div>
             </div>
         </div>
     </div>
