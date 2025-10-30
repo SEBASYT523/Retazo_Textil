@@ -96,6 +96,11 @@
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .back-btn:hover {
+            background: var(--lila-dark);
         }
         
         .products-section {
@@ -243,7 +248,7 @@
             </div>
             
             <ul class="nav-menu">
-                <li class="nav-item"><a href="menu-vendedor.xhtml" class="nav-link">🏠 Dashboard</a></li>
+                <li class="nav-item"><a href="cliente.xhtml" class="nav-link">🏠 Dashboard</a></li>
                 <li class="nav-item"><a href="nueva-venta.xhtml" class="nav-link active">🛒 Nueva Venta</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">👥 Clientes</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">📊 Ventas</a></li>
@@ -255,7 +260,8 @@
         <div class="main-content">
             <div class="header">
                 <h1 class="page-title">Nueva Venta - Productos Textiles</h1>
-                <p:button value="← Volver al Dashboard" outcome="menu-vendedor.xhtml" styleClass="back-btn"/>
+                <!-- SOLUCIÓN: Cambiado a cliente -->
+                <p:button value="← Volver al Dashboard" outcome="cliente" styleClass="back-btn"/>
             </div>
             
             <!-- Productos Disponibles -->
