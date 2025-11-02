@@ -1,195 +1,205 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <title>Login - Retazo Textil</title>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retazo Textil - Selección de Rol</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --lila: #8e44ad;
-            --lila-dark: #7d3c98;
-            --accent: #3498db;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-        }
-        
-        body, html {
-            height: 100%;
+        * {
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Arial', sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .login-container {
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 2rem;
+            padding: 20px;
         }
         
-        .login-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        .container {
+            max-width: 900px;
             width: 100%;
-            max-width: 450px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
         
-        .login-header {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
+        .header {
+            background-color: #2c3e50;
             color: white;
-            padding: 2rem;
+            padding: 30px;
             text-align: center;
         }
         
-        .login-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-content {
-            padding: 2rem;
-        }
-        
-        .role-buttons {
-            display: grid;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .role-btn {
-            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
-        }
-        
-        .role-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
-            background: linear-gradient(135deg, var(--lila-dark), var(--lila));
-        }
-        
-        .role-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .role-info {
-            flex: 1;
-        }
-        
-        .role-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .role-icon {
-            font-size: 2rem;
-            margin-right: 1rem;
-        }
-        
-        .role-name {
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             font-weight: 600;
-            font-size: 1.3rem;
-            margin: 0;
         }
         
-        .role-desc {
-            font-size: 0.95rem;
-            margin-bottom: 0;
+        .header p {
+            font-size: 1.2rem;
             opacity: 0.9;
-            line-height: 1.4;
         }
         
-        .login-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-align: right;
+        .roles-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 20px;
+            gap: 30px;
         }
         
-        /* BOTÓN VOLVER CON ESTILO MORADO */
-        .back-btn {
-            display: block;
-            text-align: center;
-            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 1rem;
-            border: none;
+        .role-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background-color: #f8f9fa;
             border-radius: 12px;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
-            width: 100%;
-            font-size: 1rem;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
-            background: linear-gradient(135deg, var(--lila-dark), var(--lila));
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .role-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .role-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .vendedor-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .vendedor-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .admin-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .admin-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .home-btn {
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 20px;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .home-btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        @media (max-width: 768px) {
+            .roles-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .role-card {
+                width: 100%;
+            }
         }
     </style>
-</h:head>
-<h:body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h2 class="login-title">Retazo Textil</h2>
-                <p>Selecciona tu rol para continuar</p>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Retazo Textil</h1>
+            <p>Selecciona tu rol para continuar</p>
+        </div>
+        
+        <div class="roles-container">
+            <div class="role-card">
+                <h2 class="role-title">Vendedor</h2>
+                <p class="role-description">Realizar ventas y gestionar clientes. Accede al sistema para procesar transacciones, administrar inventario y atender a los clientes de manera eficiente.</p>
+                <button class="btn vendedor-btn">Iniciar Sesión</button>
             </div>
             
-            <div class="login-content">
-                <div class="role-buttons">
-                    <!-- Vendedor -->
-                    <p:button outcome="login-vendedor" styleClass="role-btn">
-                        <div class="role-content">
-                            <div class="role-info">
-                                <div class="role-header">
-                                    <div class="role-icon">🧵</div>
-                                    <div class="role-name">Vendedor</div>
-                                </div>
-                                <div class="role-desc">Realizar ventas y gestionar clientes</div>
-                            </div>
-                            <div class="login-text">Iniciar Sesión</div>
-                        </div>
-                    </p:button>
-                    
-                    <!-- Administrador -->
-                    <p:button outcome="login-admin" styleClass="role-btn">
-                        <div class="role-content">
-                            <div class="role-info">
-                                <div class="role-header">
-                                    <div class="role-icon">👑</div>
-                                    <div class="role-name">Administrador</div>
-                                </div>
-                                <div class="role-desc">Gestión completa del sistema</div>
-                            </div>
-                            <div class="login-text">Iniciar Sesión</div>
-                        </div>
-                    </p:button>
-                </div>
-                
-                <!-- Botón Volver con estilo morado -->
-                <p:button value="← Volver al Inicio" outcome="index" styleClass="back-btn"/>
+            <div class="role-card">
+                <h2 class="role-title">Administrador</h2>
+                <p class="role-description">Gestión completa del sistema. Controla todos los aspectos del negocio, desde configuraciones hasta reportes detallados y administración de usuarios.</p>
+                <button class="btn admin-btn">Iniciar Sesión</button>
             </div>
         </div>
+        
+        <div style="text-align: center; padding: 20px;">
+            <button class="btn home-btn">Volver al Inicio</button>
+        </div>
+        
+        <div class="footer">
+            <p>Retazo Textil &copy; 2023 - Sistema de Gestión</p>
+        </div>
     </div>
-</h:body>
+
+    <script>
+        // Agregar funcionalidad a los botones
+        document.querySelector('.vendedor-btn').addEventListener('click', function() {
+            alert('Redirigiendo al inicio de sesión para Vendedor');
+            // Aquí iría la lógica para redirigir al login de vendedor
+        });
+        
+        document.querySelector('.admin-btn').addEventListener('click', function() {
+            alert('Redirigiendo al inicio de sesión para Administrador');
+            // Aquí iría la lógica para redirigir al login de administrador
+        });
+        
+        document.querySelector('.home-btn').addEventListener('click', function() {
+            alert('Volviendo a la página de inicio');
+            // Aquí iría la lógica para volver al inicio
+        });
+    </script>
+</body>
 </html>
