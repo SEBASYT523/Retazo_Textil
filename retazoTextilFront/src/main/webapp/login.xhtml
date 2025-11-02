@@ -8,20 +8,20 @@
     <style>
         :root {
             --primary: #2c3e50;
-            --lila: #8e44ad;
-            --lila-dark: #7d3c98;
+            --lila: #7b2cbf;
+            --lila-dark: #5a189a;
             --accent: #3498db;
             --light: #ecf0f1;
             --dark: #2c3e50;
         }
-        
+
         body, html {
             height: 100%;
             margin: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             font-family: 'Arial', sans-serif;
         }
-        
+
         .login-container {
             display: flex;
             justify-content: center;
@@ -29,7 +29,7 @@
             min-height: 100vh;
             padding: 2rem;
         }
-        
+
         .login-card {
             background: white;
             border-radius: 15px;
@@ -38,33 +38,34 @@
             max-width: 450px;
             overflow: hidden;
         }
-        
+
         .login-header {
             background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
             padding: 2rem;
             text-align: center;
         }
-        
+
         .login-title {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
-        
+
         .login-content {
             padding: 2rem;
         }
-        
+
         .role-buttons {
             display: grid;
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
-        
-        .role-btn {
+
+        /* 🌈 Estilo morado para todos los botones */
+        .role-btn, .back-btn {
             background: linear-gradient(135deg, var(--lila), var(--lila-dark));
-            color: white;
+            color: white !important;
             border: none;
             border-radius: 12px;
             padding: 1.5rem;
@@ -72,85 +73,53 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: block;
-            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
+            text-align: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(91, 33, 182, 0.3);
         }
-        
-        .role-btn:hover {
+
+        .role-btn:hover, .back-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
+            box-shadow: 0 8px 20px rgba(91, 33, 182, 0.5);
             background: linear-gradient(135deg, var(--lila-dark), var(--lila));
         }
-        
+
         .role-content {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
         }
-        
+
         .role-info {
             flex: 1;
         }
-        
+
         .role-header {
             display: flex;
             align-items: center;
             margin-bottom: 0.5rem;
         }
-        
+
         .role-icon {
             font-size: 2rem;
             margin-right: 1rem;
         }
-        
+
         .role-name {
             font-weight: 600;
             font-size: 1.3rem;
             margin: 0;
         }
-        
+
         .role-desc {
             font-size: 0.95rem;
             margin-bottom: 0.5rem;
             opacity: 0.9;
             line-height: 1.4;
         }
-        
-        .login-action {
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-        
-        .login-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-arrow {
-            font-size: 1.5rem;
-        }
-        
-        .back-btn {
-            display: block;
-            text-align: center;
-            color: var(--lila);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 1rem;
-            border: 2px solid var(--lila);
-            border-radius: 8px;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .back-btn:hover {
-            background: var(--lila);
-            color: white;
-        }
     </style>
 </h:head>
+
 <h:body>
     <div class="login-container">
         <div class="login-card">
@@ -158,40 +127,39 @@
                 <h2 class="login-title">Retazo Textil</h2>
                 <p>Selecciona tu rol para continuar</p>
             </div>
-            
+
             <div class="login-content">
                 <div class="role-buttons">
-                
-                
-                
-                    <!-- Vendedor - Ahora navega a login-vendedor.xhtml -->
-                    <p:button outcome="login-vendedor" styleClass="role-btn" value="Iniciar Sesión">
-    <div class="role-content">
-        <div class="role-info">
-            <div class="role-header">
-                <div class="role-icon">🧵</div>
-                <div class="role-name">Vendedor</div>
-            </div>
-            <div class="role-desc">Realizar ventas y gestionar clientes</div>
-        </div>
-    </div>
-</p:button>
-                    
-                    <!-- Administrador - Ahora navega a login-admin.xhtml -->
-<p:button outcome="login-admin" styleClass="role-btn" value="Iniciar Sesión">
-    <div class="role-content">
-        <div class="role-info">
-            <div class="role-header">
-                <div class="role-icon">👑</div>
-                <div class="role-name">Administrador</div>
-            </div>
-            <div class="role-desc">Gestión completa del sistema</div>
-        </div>
-    </div>
-</p:button>
-</div>
 
-                
+                    <!-- Vendedor -->
+                    <p:button outcome="login-vendedor" styleClass="role-btn" value="Iniciar Sesión">
+                        <div class="role-content">
+                            <div class="role-info">
+                                <div class="role-header">
+                                    <div class="role-icon">🧵</div>
+                                    <div class="role-name">Vendedor</div>
+                                </div>
+                                <div class="role-desc">Realizar ventas y gestionar clientes</div>
+                            </div>
+                        </div>
+                    </p:button>
+
+                    <!-- Administrador -->
+                    <p:button outcome="login-admin" styleClass="role-btn" value="Iniciar Sesión">
+                        <div class="role-content">
+                            <div class="role-info">
+                                <div class="role-header">
+                                    <div class="role-icon">👑</div>
+                                    <div class="role-name">Administrador</div>
+                                </div>
+                                <div class="role-desc">Gestión completa del sistema</div>
+                            </div>
+                        </div>
+                    </p:button>
+
+                </div>
+
+                <!-- Volver al inicio -->
                 <p:button value="← Volver al Inicio" outcome="index.xhtml" styleClass="back-btn"/>
             </div>
         </div>
