@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+              version="2.3">
+
+    <!-- Navegación desde login-vendedor a cliente -->
+    <navigation-rule>
+        <from-view-id>/login-vendedor.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/cliente.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- Navegación desde cliente a nuevaVentaVendedor -->
+    <navigation-rule>
+        <from-view-id>/cliente.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nuevaVentaVendedor</from-outcome>
+            <to-view-id>/nuevaVentaVendedor.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- Navegación desde nuevaVentaVendedor a cliente -->
+    <navigation-rule>
+        <from-view-id>/nuevaVentaVendedor.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/cliente.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- Navegación general para volver al index -->
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- Navegación general para volver al login -->
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>
