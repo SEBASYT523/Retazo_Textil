@@ -156,22 +156,20 @@
                 <div class="pedidos-table">
                     <h2 class="section-title">Historial de Pedidos</h2>
 
-                    <p:dataTable value="#{PedidoClienteBean.pedidos}" var="pedido"
+                    <p:dataTable value="#{PedidoBean.pedidos}" var="pedido"
                                  paginator="true" rows="6"
                                  emptyMessage="No tienes pedidos aún 😔"
                                  style="width:100%; border-radius:10px;"
                                  responsiveLayout="scroll">
 
-                        <p:column headerText="ID Pedido">
-                            <h:outputText value="#{pedido.idPedido}" />
-                        </p:column>
+                     
 
                         <p:column headerText="Fecha">
                             <h:outputText value="#{pedido.fechaPedido}" />
                         </p:column>
 
-                        <p:column headerText="Estado">
-                            <h:outputText value="#{pedido.estado}" />
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{pedido.cantidad}" />
                         </p:column>
 
                         <p:column headerText="Total ($)">
@@ -180,7 +178,7 @@
 
                         <p:column headerText="Detalles">
                             <p:commandButton value="🔍 Ver"
-                                             actionListener="#{PedidoClienteBean.verDetalles(pedido)}"
+                                             actionListener="#{PedidoBean.verDetalles(pedido)}"
                                              update=":pedidosForm:detalleDialog"
                                              oncomplete="PF('detalleDialog').show()"
                                              styleClass="ui-button-outlined ui-button-secondary" />
@@ -190,17 +188,15 @@
                     <!-- Dialog Detalles -->
                     <p:dialog header="Detalles del Pedido" widgetVar="detalleDialog" modal="true" resizable="false" id="detalleDialog" width="400">
                         <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputText value="ID:" />
-                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.idPedido}" />
-
+                         
                             <h:outputText value="Fecha:" />
-                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.fechaPedido}" />
+                            <h:outputText value="#{PedidoBean.pedidoSeleccionado.fechaPedido}" />
 
                             <h:outputText value="Estado:" />
-                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.estado}" />
+                            <h:outputText value="#{PedidoBean.pedidoSeleccionado.cantidad}" />
 
                             <h:outputText value="Total:" />
-                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.total}" />
+                            <h:outputText value="#{PedidoBean.pedidoSeleccionado.total}" />
                         </h:panelGrid>
                     </p:dialog>
                 </div>

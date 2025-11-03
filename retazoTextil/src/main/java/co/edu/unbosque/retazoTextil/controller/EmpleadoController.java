@@ -78,7 +78,7 @@ public class EmpleadoController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> validarCredenciales(@RequestBody EmpleadoDTO loginRequest) {
-		Empleado result = empleadoService.validateCredentials(loginRequest.getIdEmpleado(),
+		EmpleadoDTO result = empleadoService.validateCredentials(loginRequest.getIdEmpleado(),
 				loginRequest.getContrasenia());
 
 		if (result != null) {

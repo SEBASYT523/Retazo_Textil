@@ -32,8 +32,8 @@ public class Pedido {
 
     public Pedido() {}
 
-    public Pedido(Cliente cliente, Producto producto, LocalDate fechaPedido, Integer cantidad, BigDecimal total) {
-        this.id = new PedidoId(cliente.getIdCliente(), producto.getCodProducto());
+    public Pedido(PedidoId pedidoId,Cliente cliente, Producto producto, LocalDate fechaPedido, Integer cantidad, BigDecimal total) {
+        this.id = pedidoId;
         this.cliente = cliente;
         this.producto = producto;
         this.fechaPedido = fechaPedido;

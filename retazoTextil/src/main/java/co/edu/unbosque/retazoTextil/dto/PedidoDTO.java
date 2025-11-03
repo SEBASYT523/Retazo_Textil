@@ -25,6 +25,18 @@ public class PedidoDTO {
 		this.cantidad = cantidad;
 		this.total = total;
 	}
+	
+	
+
+	public PedidoDTO(Integer clienteId, Integer productoId, LocalDate fechaPedidoDTO, Integer cantidad,
+			BigDecimal total) {
+		super();
+		this.clienteId = clienteId;
+		this.productoId = productoId;
+		this.fechaPedidoDTO = fechaPedidoDTO;
+		this.cantidad = cantidad;
+		this.total = total;
+	}
 
 	public LocalDate getFechaPedidoDTO() {
 		return fechaPedidoDTO;

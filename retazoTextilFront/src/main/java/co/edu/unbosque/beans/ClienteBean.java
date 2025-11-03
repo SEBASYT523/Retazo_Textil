@@ -86,8 +86,9 @@ public class ClienteBean implements Serializable {
 
             String response = ExternalHTTPRequestHandler.doPostRegister(URL_LOGIN, json);
             
-            String[] division= response.split("\n");
+            String[] division= response.split("   \n   ");
             
+            System.out.println(division[1]);
             if (division[0].contains("200")) {
                 clienteActual = gson.fromJson(division[1], ClienteDTO.class);
 

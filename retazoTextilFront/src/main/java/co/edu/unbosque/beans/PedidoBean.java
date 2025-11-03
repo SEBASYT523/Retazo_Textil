@@ -14,7 +14,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
-@Named("PedidoClienteBean")
+@Named("PedidoBean")
 @SessionScoped
 public class PedidoBean implements Serializable {
 
@@ -24,7 +24,7 @@ public class PedidoBean implements Serializable {
     private PedidoDTO pedidoSeleccionado;
     private ClienteBean cliente;
 
-    private static final String BASE_URL = "http://localhost:8080/cliente/";
+    private static final String BASE_URL = "http://localhost:8080/cliente/pedido/";
 
     @PostConstruct
     public void init() {
@@ -35,9 +35,10 @@ public class PedidoBean implements Serializable {
     public void cargarPedidos() {
         try {
             Integer idCliente = cliente.getClienteActual().getIdCliente(); 
+            System.out.println(idCliente);
 
-            if (idCliente == null) return;
-
+			if (idCliente == null) return;
+           
             String response = ExternalHTTPRequestHandler.doGet(BASE_URL + idCliente);
             Gson gson = new Gson();
             Type listType = new TypeToken<List<PedidoDTO>>() {}.getType();

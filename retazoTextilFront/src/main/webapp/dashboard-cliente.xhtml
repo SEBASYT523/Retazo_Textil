@@ -223,7 +223,12 @@
                 <div class="quick-actions">
                     <h2 class="section-title">Acciones Rápidas</h2>
                     <div class="actions-grid">
-                        <p:button value="📦 Ver Mis Pedidos" outcome="pedidosCliente" styleClass="action-btn"/>
+                        <p:commandButton 
+    						  value="📦 Ver Mis Pedidos" 
+ 						      action="#{PedidoBean.cargarPedidos}" 
+   							  styleClass="action-btn" 
+  							  ajax="false"/>
+			
                         <p:button value="🛍️ Ver Productos" outcome="productosCliente" styleClass="action-btn"/>
                     </div>
                 </div>

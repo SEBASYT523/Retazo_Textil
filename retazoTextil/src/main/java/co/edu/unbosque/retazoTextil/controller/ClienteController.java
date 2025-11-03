@@ -75,7 +75,7 @@ public class ClienteController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> validarCredenciales(@RequestBody ClienteDTO loginRequest) {
-		Cliente result = clienteService.validateCredentials(loginRequest.getIdCliente(), loginRequest.getContrasenia());
+		ClienteDTO result = clienteService.validateCredentials(loginRequest.getIdCliente(), loginRequest.getContrasenia());
 		if (result != null) {
 			return ResponseEntity.ok(result);
 		}

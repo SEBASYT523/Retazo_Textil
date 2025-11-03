@@ -28,13 +28,13 @@ public class PedidoController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Pedido>> listarPedidos() {
+	public ResponseEntity<List<PedidoDTO>> listarPedidos() {
 		return ResponseEntity.ok(pedidoService.listarPedidos());
 	}
 
 	@GetMapping("/{clienteId}/{productoId}")
 	public ResponseEntity<?> obtenerPedido(@PathVariable Integer clienteId, @PathVariable Integer productoId) {
-		Pedido pedido = pedidoService.obtenerPedidoPorId(clienteId, productoId);
+		PedidoDTO pedido = pedidoService.obtenerPedidoPorId(clienteId, productoId);
 		if (pedido == null) {
 			return ResponseEntity.badRequest().body("❌ Pedido no encontrado.");
 		}
@@ -50,7 +50,7 @@ public class PedidoController {
 		return ResponseEntity.ok("✅ Pedido eliminado correctamente.");
 	}
 	
-	@GetMapping("/cliente/{idCliente}")
+	@GetMapping("/cliente/pedido/{idCliente}")
     public List<PedidoDTO> obtenerPedidosPorCliente(@PathVariable Integer idCliente) {
         return pedidoService.obtenerPedidosPorCliente(idCliente);
     }

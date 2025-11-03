@@ -37,7 +37,7 @@ public class ExternalHTTPRequestHandler {
 		}
 		System.out.println(respuesta.statusCode());
 		System.out.println(respuesta.body());
-		return respuesta.statusCode() +"\n" + respuesta.body();
+		return respuesta.statusCode() +"   \n   " + respuesta.body();
 	}
 
 	public static String doPostLogin(String url, String json) {

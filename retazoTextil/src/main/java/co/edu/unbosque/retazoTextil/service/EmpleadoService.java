@@ -125,10 +125,12 @@ public class EmpleadoService {
 		return empleadoRepo.findById(id).isPresent();
 	}
 
-	public Empleado validateCredentials(Integer id, String password) {
+	public EmpleadoDTO validateCredentials(Integer id, String password) {
 		Optional<Empleado> opt = empleadoRepo.findById(id);
 		if (opt.isPresent() && AESUtil.validatePassword(password, opt.get().getContrasenia())) {
-			return opt.get();
+			EmpleadoDTO dto = modelMapper.map(opt.get(), EmpleadoDTO.class);
+			dto.setIdEmpleado(id);
+			return dto;
 		}
 		return null ;
 	}

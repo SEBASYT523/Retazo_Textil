@@ -2,9 +2,7 @@ package co.edu.unbosque.retazoTextil.service;
 
 import co.edu.unbosque.retazoTextil.dto.ClienteDTO;
 import co.edu.unbosque.retazoTextil.model.Cliente;
-import co.edu.unbosque.retazoTextil.model.Pedido;
 import co.edu.unbosque.retazoTextil.repository.ClienteRepository;
-import co.edu.unbosque.retazoTextil.repository.PedidoRepository;
 import co.edu.unbosque.retazoTextil.util.AESUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,7 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepo;
 
-	@Autowired
-	private PedidoRepository pedidoRepo;
+
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -38,12 +35,6 @@ public class ClienteService {
 		cliente.setTelefono(data.getTelefono());
 		cliente.setDireccion(data.getDireccion());
 
-		if (data.getpedidosId() != null && !data.getpedidosId().isEmpty()) {
-			List<Pedido> pedidos = data.getpedidosId().stream().map(pid -> pedidoRepo.findById(pid).orElse(null))
-					.filter(Objects::nonNull).collect(Collectors.toList());
-			cliente.setPedidos(pedidos);
-		}
-
 		clienteRepo.save(cliente);
 		return 0;
 	}
@@ -53,9 +44,7 @@ public class ClienteService {
 		return clienteRepo.findAll().stream().map(c -> {
 			ClienteDTO dto = modelMapper.map(c, ClienteDTO.class);
 			dto.setContrasenia(null); // No mostrar contraseñas
-			if (c.getPedidos() != null) {
-				dto.setpedidosId(c.getPedidos().stream().map(Pedido::getId).collect(Collectors.toList()));
-			}
+
 			return dto;
 		}).collect(Collectors.toList());
 	}
@@ -65,9 +54,7 @@ public class ClienteService {
 		return clienteRepo.findById(id).map(c -> {
 			ClienteDTO dto = modelMapper.map(c, ClienteDTO.class);
 			dto.setContrasenia(null);
-			if (c.getPedidos() != null) {
-				dto.setpedidosId(c.getPedidos().stream().map(Pedido::getId).collect(Collectors.toList()));
-			}
+
 			return dto;
 		}).orElse(null);
 	}
@@ -97,20 +84,14 @@ public class ClienteService {
 		if (newData.getDireccion() != null)
 			cliente.setDireccion(newData.getDireccion());
 
-		if (newData.getpedidosId() != null) {
-			List<Pedido> pedidos = newData.getpedidosId().stream().map(pid -> pedidoRepo.findById(pid).orElse(null))
-					.filter(Objects::nonNull).collect(Collectors.toList());
-			cliente.setPedidos(pedidos);
-		}
-
 		clienteRepo.save(cliente);
 		return 0;
 	}
 
-	public Cliente validateCredentials(Integer id, String password) {
+	public ClienteDTO validateCredentials(Integer id, String password) {
 		Optional<Cliente> opt = clienteRepo.findById(id);
 		if (opt.isPresent() && AESUtil.validatePassword(password, opt.get().getContrasenia())) {
-			return opt.get();
+			return new ClienteDTO(opt.get().getIdCliente(), opt.get().getPrimerNombre(), opt.get().getSegundoNombre(), opt.get().getPrimerApellido(), opt.get().getSegundoApellido(), opt.get().getContrasenia(), opt.get().getTelefono(), opt.get().getDireccion(), opt.get().getFechaNacimiento());
 		}
 		return null;
 	}

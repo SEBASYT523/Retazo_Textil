@@ -1,7 +1,6 @@
 package co.edu.unbosque.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class ClienteDTO {
 
@@ -23,13 +22,11 @@ public class ClienteDTO {
 
 	private LocalDate fechaNacimiento;
 
-	private List<PedidoId> pedidosId;
-
 	public ClienteDTO() {
 	}
 
-	public ClienteDTO(Integer idCliente,String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento) {
+	public ClienteDTO(Integer idCliente, String primerNombre, String segundoNombre, String primerApellido,
+			String segundoApellido, String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento) {
 		this.idCliente = idCliente;
 		this.primerNombre = primerNombre;
 		this.segundoNombre = segundoNombre;
@@ -40,30 +37,6 @@ public class ClienteDTO {
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
 
-	}
-
-	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento,
-			List<PedidoId> pedidosId) {
-		super();
-		this.primerNombre = primerNombre;
-		this.segundoNombre = segundoNombre;
-		this.primerApellido = primerApellido;
-		this.segundoApellido = segundoApellido;
-		this.contrasenia = contrasenia;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.fechaNacimiento = fechaNacimiento;
-
-		this.pedidosId = pedidosId;
-	}
-
-	public List<PedidoId> getpedidosId() {
-		return pedidosId;
-	}
-
-	public void setpedidosId(List<PedidoId> pedidosId) {
-		this.pedidosId = pedidosId;
 	}
 
 	public String getContrasenia() {
@@ -136,14 +109,6 @@ public class ClienteDTO {
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public List<PedidoId> getIntegers() {
-		return pedidosId;
-	}
-
-	public void setIntegers(List<PedidoId> pedidosId) {
-		this.pedidosId = pedidosId;
 	}
 
 }

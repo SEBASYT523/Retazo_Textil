@@ -1,5 +1,6 @@
 package co.edu.unbosque.retazoTextil.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class PedidoService {
             return null;
         }
 
-        Pedido pedido = new Pedido(
+        Pedido pedido = new Pedido(new PedidoId(dto.getClienteId(), dto.getProductoId()),
                 clienteOpt.get(),
                 productoOpt.get(),
                 dto.getFechaPedidoDTO(),
@@ -59,14 +60,29 @@ public class PedidoService {
     }
 
     
-    public List<Pedido> listarPedidos() {
-        return pedidoRepo.findAll();
+    public List<PedidoDTO> listarPedidos() {
+    	List<Pedido> entidades = pedidoRepo.findAll();
+		List<PedidoDTO> dtos = new ArrayList<>();
+
+		for (Pedido a : entidades) {
+			Integer numeroCliente = a.getCliente().getIdCliente();
+			Integer idProducto = a.getProducto().getCodProducto();
+
+			PedidoDTO dto = new PedidoDTO(numeroCliente,idProducto, a.getFechaPedido(), a.getCantidad(), a.getTotal());
+			dtos.add(dto);
+		}
+
+		return dtos;
     }
 
     
-    public Pedido obtenerPedidoPorId(Integer clienteId, Integer productoId) {
+    public PedidoDTO obtenerPedidoPorId(Integer clienteId, Integer productoId) {
         PedidoId id = new PedidoId(clienteId, productoId);
-        return pedidoRepo.findById(id).orElse(null);
+       Pedido respuesta = pedidoRepo.findById(id).orElse(null);
+        if(respuesta == null) {
+        	return null;
+        }
+        return new PedidoDTO(clienteId, productoId, respuesta.getFechaPedido(), respuesta.getCantidad(),respuesta.getTotal());
     }
 
     
