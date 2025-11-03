@@ -1,56 +1,34 @@
-package co.edu.unbosque.retazoTextil.model;
+package co.edu.unbosque.model;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+public class ClienteDTO {
 
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "cliente")
-public class Cliente {
-
-	@Id
-	@Column(name = "id_cliente")
 	private Integer idCliente;
 
-	@Column(name = "primer_nombre", nullable = false, length = 30)
 	private String primerNombre;
 
-	@Column(name = "segundo_nombre", length = 30)
 	private String segundoNombre;
 
-	@Column(name = "primer_apellido", nullable = false, length = 30)
 	private String primerApellido;
 
-	@Column(name = "segundo_apellido", length = 30)
 	private String segundoApellido;
 
-	@Column(name = "contrasenia", nullable = false, length = 255)
 	private String contrasenia;
 
-	@Column(nullable = false, length = 20)
 	private String telefono;
 
-	@Column(nullable = false, length = 100)
 	private String direccion;
 
-	@Column(name = "fecha_nacimiento", nullable = false)
 	private LocalDate fechaNacimiento;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Pedido> pedidos;
+	private List<PedidoId> pedidosId;
 
-	public Cliente() {
+	public ClienteDTO() {
 	}
 
-	public Cliente(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
 			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento) {
 		this.primerNombre = primerNombre;
 		this.segundoNombre = segundoNombre;
@@ -63,8 +41,9 @@ public class Cliente {
 
 	}
 
-	public Cliente(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento, List<Pedido> pedidos) {
+	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento,
+			List<PedidoId> pedidosId) {
 		super();
 		this.primerNombre = primerNombre;
 		this.segundoNombre = segundoNombre;
@@ -75,7 +54,15 @@ public class Cliente {
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
 
-		this.pedidos = pedidos;
+		this.pedidosId = pedidosId;
+	}
+
+	public List<PedidoId> getpedidosId() {
+		return pedidosId;
+	}
+
+	public void setpedidosId(List<PedidoId> pedidosId) {
+		this.pedidosId = pedidosId;
 	}
 
 	public String getContrasenia() {
@@ -150,12 +137,12 @@ public class Cliente {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public List<PedidoId> getIntegers() {
+		return pedidosId;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setIntegers(List<PedidoId> pedidosId) {
+		this.pedidosId = pedidosId;
 	}
 
 }

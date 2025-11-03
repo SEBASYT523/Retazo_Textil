@@ -1,7 +1,11 @@
 package co.edu.unbosque.retazoTextil.controller;
 
 import co.edu.unbosque.retazoTextil.dto.EmpleadoDTO;
+import co.edu.unbosque.retazoTextil.dto.LoginDTO;
+import co.edu.unbosque.retazoTextil.model.Empleado;
+import co.edu.unbosque.retazoTextil.service.AdministradorService;
 import co.edu.unbosque.retazoTextil.service.EmpleadoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +20,12 @@ public class EmpleadoController {
 	@Autowired
 	private EmpleadoService empleadoService;
 
+	@Autowired
+	private AdministradorService adminServ;
+
 	@PostMapping("/crear")
 	public ResponseEntity<String> createEmpleado(@RequestBody EmpleadoDTO empleadoDTO) {
-	 empleadoService.create(empleadoDTO);
+		empleadoService.create(empleadoDTO);
 		return ResponseEntity.ok("Empleado creado exitosamente.");
 	}
 
@@ -70,11 +77,38 @@ public class EmpleadoController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> validarCredenciales(@RequestParam Integer id, @RequestParam String password) {
-		int result = empleadoService.validateCredentials(id, password);
-		if (result == 0) {
-			return ResponseEntity.ok("Credenciales válidas. Inicio de sesión exitoso.");
+	public ResponseEntity<?> validarCredenciales(@RequestBody EmpleadoDTO loginRequest) {
+		Empleado result = empleadoService.validateCredentials(loginRequest.getIdEmpleado(),
+				loginRequest.getContrasenia());
+
+		if (result != null) {
+			String rol;
+
+			if (adminServ.getById(loginRequest.getIdEmpleado()) != null) {
+				rol = "ADMIN";
+			} else {
+				rol = "VENDEDOR";
+			}
+
+			EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+			empleadoDTO.setIdEmpleado(result.getIdEmpleado());
+			empleadoDTO.setPrimerNombreEmpleado(result.getPrimerNombreEmpleado());
+			empleadoDTO.setPrimerApellidoEmpleado(result.getPrimerApellidoEmpleado());
+			empleadoDTO.setSegundoNombreEmpleado(result.getSegundoNombreEmpleado());
+			empleadoDTO.setSegundoApellidoEmpleado(result.getSegundoApellidoEmpleado());
+			empleadoDTO.setTelefonoEmpleado(result.getTelefonoEmpleado());
+			empleadoDTO.setDireccionEmpleado(result.getDireccionEmpleado());
+			empleadoDTO.setPaisNacimiento(result.getPaisNacimiento());
+			empleadoDTO.setCiudadNacimiento(result.getCiudadNacimiento());
+			empleadoDTO.setFechaNacimiento(result.getFechaNacimiento());
+			empleadoDTO.setFechaIngreso(result.getFechaIngreso());
+			empleadoDTO.setSalario(result.getSalario());
+
+			LoginDTO response = new LoginDTO(empleadoDTO, rol);
+			return ResponseEntity.ok(response);
 		}
+
 		return ResponseEntity.status(401).body("Credenciales incorrectas.");
 	}
+
 }

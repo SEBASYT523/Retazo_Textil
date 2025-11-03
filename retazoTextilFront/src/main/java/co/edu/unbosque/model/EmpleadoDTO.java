@@ -1,5 +1,6 @@
-package co.edu.unbosque.retazoTextil.dto;
+package co.edu.unbosque.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class EmpleadoDTO {
 	private String ciudadNacimiento;
 	private LocalDate fechaNacimiento;
 	private LocalDate fechaIngreso;
-	private Double salario;
+	private BigDecimal salario;
 
 	private List<Integer> ventasIds;
 
@@ -27,7 +28,7 @@ public class EmpleadoDTO {
 	public EmpleadoDTO(Integer idEmpleado, String primerNombreEmpleado, String segundoNombreEmpleado,
 			String primerApellidoEmpleado, String contrasenia, String segundoApellidoEmpleado, String telefonoEmpleado,
 			String direccionEmpleado, String paisNacimiento, String ciudadNacimiento, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, Double salario, List<Integer> ventasIds) {
+			LocalDate fechaIngreso, BigDecimal salario, List<Integer> ventasIds) {
 		super();
 		this.idEmpleado = idEmpleado;
 		this.primerNombreEmpleado = primerNombreEmpleado;
@@ -48,7 +49,7 @@ public class EmpleadoDTO {
 	public EmpleadoDTO(String primerNombreEmpleado, String contrasenia, String segundoNombreEmpleado,
 			String primerApellidoEmpleado, String segundoApellidoEmpleado, String telefonoEmpleado,
 			String direccionEmpleado, String paisNacimiento, String ciudadNacimiento, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, Double salario, List<Integer> ventasIds) {
+			LocalDate fechaIngreso, BigDecimal salario, List<Integer> ventasIds) {
 		this.primerNombreEmpleado = primerNombreEmpleado;
 		this.segundoNombreEmpleado = segundoNombreEmpleado;
 		this.primerApellidoEmpleado = primerApellidoEmpleado;
@@ -161,11 +162,11 @@ public class EmpleadoDTO {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Double getSalario() {
+	public BigDecimal getSalario() {
 		return salario;
 	}
 
-	public void setSalario(Double salario) {
+	public void setSalario(BigDecimal salario) {
 		this.salario = salario;
 	}
 

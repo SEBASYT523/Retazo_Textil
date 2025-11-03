@@ -25,15 +25,13 @@ public class ClienteDTO {
 
 	private LocalDate fechaNacimiento;
 
-	private String anosComprando;
-
 	private List<PedidoId> pedidosId;
 
 	public ClienteDTO() {
 	}
 
 	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento, String anosComprando) {
+			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento) {
 		this.primerNombre = primerNombre;
 		this.segundoNombre = segundoNombre;
 		this.primerApellido = primerApellido;
@@ -42,11 +40,11 @@ public class ClienteDTO {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
-		this.anosComprando = anosComprando;
+
 	}
 
 	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento, String anosComprando,
+			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento,
 			List<PedidoId> pedidosId) {
 		super();
 		this.primerNombre = primerNombre;
@@ -57,7 +55,7 @@ public class ClienteDTO {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
-		this.anosComprando = anosComprando;
+
 		this.pedidosId = pedidosId;
 	}
 
@@ -139,14 +137,6 @@ public class ClienteDTO {
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public String getAnosComprando() {
-		return anosComprando;
-	}
-
-	public void setAnosComprando(String anosComprando) {
-		this.anosComprando = anosComprando;
 	}
 
 	public List<PedidoId> getIntegers() {

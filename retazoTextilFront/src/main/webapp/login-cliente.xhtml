@@ -4,7 +4,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Login Administrador - Retazo Textil</title>
+    <title>Login Cliente - Retazo Textil</title>
     <style>
         :root {
             --primary: #2c3e50;
@@ -14,14 +14,14 @@
             --light: #ecf0f1;
             --dark: #2c3e50;
         }
-        
+
         body, html {
             height: 100%;
             margin: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             font-family: 'Arial', sans-serif;
         }
-        
+
         .login-container {
             display: flex;
             justify-content: center;
@@ -29,7 +29,7 @@
             min-height: 100vh;
             padding: 2rem;
         }
-        
+
         .login-card {
             background: white;
             border-radius: 15px;
@@ -38,20 +38,20 @@
             max-width: 400px;
             overflow: hidden;
         }
-        
+
         .login-header {
-            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
+            background: linear-gradient(135deg, var(--accent), var(--lila));
             color: white;
             padding: 2rem;
             text-align: center;
         }
-        
+
         .login-title {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
-        
+
         .role-badge {
             background: rgba(255,255,255,0.2);
             padding: 0.5rem 1rem;
@@ -60,22 +60,22 @@
             display: inline-block;
             margin-top: 0.5rem;
         }
-        
+
         .login-content {
             padding: 2rem;
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
+
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--dark);
         }
-        
+
         .form-input {
             width: 100%;
             padding: 0.75rem;
@@ -84,16 +84,16 @@
             font-size: 1rem;
             transition: border-color 0.3s ease;
         }
-        
+
         .form-input:focus {
             outline: none;
-            border-color: var(--lila);
-            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
-        
+
         .login-btn {
             width: 100%;
-            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
+            background: linear-gradient(135deg, var(--accent), var(--lila));
             color: white;
             border: none;
             padding: 1rem;
@@ -102,33 +102,53 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 1.5rem; /* Aumentado el espacio inferior */
+            margin-bottom: 1rem;
         }
-        
+
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
         }
-        
+
+        .register-btn {
+            width: 100%;
+            background: white;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 1rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
         .back-btn {
             display: block;
             text-align: center;
-            color: var(--lila);
+            color: var(--accent);
             text-decoration: none;
             font-weight: 500;
             padding: 0.75rem;
-            border: 2px solid var(--lila);
+            border: 2px solid var(--accent);
             border-radius: 8px;
             transition: all 0.3s ease;
             background: white;
-            margin-top: 1rem; /* Añadido espacio superior */
+            margin-top: 1rem;
         }
-        
+
         .back-btn:hover {
-            background: var(--lila);
+            background: var(--accent);
             color: white;
         }
-        
+
         .demo-info {
             background: #f8f9fa;
             padding: 1rem;
@@ -136,12 +156,11 @@
             margin-bottom: 1.5rem;
             text-align: center;
             font-size: 0.9rem;
-            border-left: 4px solid var(--lila);
+            border-left: 4px solid var(--accent);
         }
-        
-        /* Contenedor para los botones con más separación */
+
         .buttons-container {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
     </style>
 </h:head>
@@ -150,41 +169,53 @@
         <div class="login-card">
             <div class="login-header">
                 <h2 class="login-title">Retazo Textil</h2>
-                <p>Acceso de Administrador</p>
-                <div class="role-badge">👑 Administrador</div>
+                <p>Acceso de Cliente</p>
+                <div class="role-badge">🧍‍♂️ Cliente</div>
             </div>
-            
+
             <div class="login-content">
                 <div class="demo-info">
-                   <strong>Credenciales de prueba:</strong><br />
-                    Usuario: admin | Contraseña: 123
+                    <strong>Credenciales de prueba:</strong><br />
+                    Usuario: 1234 | Contraseña: abcd
                 </div>
-                
-                <h:form>
+
+                <h:form id="loginFormCliente">
+                    <p:messages autoUpdate="true" closable="true" />
+
                     <div class="form-group">
                         <label class="form-label">Usuario</label>
-                        <p:inputText styleClass="form-input" 
-                                   placeholder="Ingresa tu usuario"
-                                   required="true"/>
+                        <p:inputText styleClass="form-input"
+                                     placeholder="Ingresa tu usuario"
+                                     value="#{LoginBean.idCliente}"
+                                     required="true"
+                                     requiredMessage="El usuario es obligatorio" />
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label">Contraseña</label>
-                        <p:password styleClass="form-input" 
-                                  placeholder="Ingresa tu contraseña"
-                                  required="true"
-                                  feedback="false"/>
+                        <p:password styleClass="form-input"
+                                    placeholder="Ingresa tu contraseña"
+                                    value="#{LoginBean.contraseniaCliente}"
+                                    feedback="false"
+                                    required="true"
+                                    requiredMessage="La contraseña es obligatoria" />
                     </div>
-                    
-                    <p:button value="INICIAR SESIÓN" 
-                             outcome="admin"
-                             styleClass="login-btn"/>
+
+                    <p:commandButton value="INICIAR SESIÓN"
+                                     action="#{LoginBean.loginCliente}"
+                                     styleClass="login-btn"
+                                     update="loginFormCliente"
+                                     ajax="true" />
+
+                    <p:button value="CREAR NUEVA CUENTA"
+                              outcome="registro-cliente.xhtml"
+                              styleClass="register-btn" />
                 </h:form>
-                
+
                 <div class="buttons-container">
-                    <p:button value="← Volver" 
-                             outcome="login" 
-                             styleClass="back-btn"/>
+                    <p:button value="← Volver"
+                              outcome="login"
+                              styleClass="back-btn"/>
                 </div>
             </div>
         </div>

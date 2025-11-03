@@ -13,79 +13,61 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class LocalController {
 
-    @Autowired
-    private LocalService localService;
+	@Autowired
+	private LocalService localService;
 
-    // ============================
-    //          CREATE
-    // ============================
-    @PostMapping("/crear")
-    public ResponseEntity<String> createLocal(@RequestBody LocalDTO localDTO) {
-        localService.create(localDTO);
-        return ResponseEntity.ok("Local creado exitosamente.");
-    }
+	@PostMapping("/crear")
+	public ResponseEntity<String> createLocal(@RequestBody LocalDTO localDTO) {
+		localService.create(localDTO);
+		return ResponseEntity.ok("Local creado exitosamente.");
+	}
 
-    // ============================
-    //          READ ALL
-    // ============================
-    @GetMapping("/listar")
-    public ResponseEntity<List<LocalDTO>> listarLocales() {
-        List<LocalDTO> locales = localService.getAll();
-        return ResponseEntity.ok(locales);
-    }
+	@GetMapping("/listar")
+	public ResponseEntity<List<LocalDTO>> listarLocales() {
+		List<LocalDTO> locales = localService.getAll();
+		return ResponseEntity.ok(locales);
+	}
 
-    // ============================
-    //          READ BY ID
-    // ============================
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getLocalById(@PathVariable Integer id) {
-        LocalDTO local = localService.getById(id);
-        if (local == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(local);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getLocalById(@PathVariable Integer id) {
+		LocalDTO local = localService.getById(id);
+		if (local == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(local);
+	}
 
-    // ============================
-    //          UPDATE
-    // ============================
-    @PutMapping("/actualizar/{id}")
-    public ResponseEntity<String> updateLocal(@PathVariable Integer id, @RequestBody LocalDTO newData) {
-        int result = localService.updateById(id, newData);
+	@PutMapping("/actualizar/{id}")
+	public ResponseEntity<String> updateLocal(@PathVariable Integer id, @RequestBody LocalDTO newData) {
+		int result = localService.updateById(id, newData);
 
-        if (result == 1) {
-            return ResponseEntity.notFound().build();
-        }
+		if (result == 1) {
+			return ResponseEntity.notFound().build();
+		}
 
-        return ResponseEntity.ok("Local actualizado correctamente.");
-    }
+		return ResponseEntity.ok("Local actualizado correctamente.");
+	}
 
-    // ============================
-    //          DELETE
-    // ============================
-    @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<String> deleteLocal(@PathVariable Integer id) {
-        int result = localService.deleteById(id);
+	@DeleteMapping("/eliminar/{id}")
+	public ResponseEntity<String> deleteLocal(@PathVariable Integer id) {
+		int result = localService.deleteById(id);
 
-        if (result == 1) {
-            return ResponseEntity.notFound().build();
-        }
+		if (result == 1) {
+			return ResponseEntity.notFound().build();
+		}
 
-        return ResponseEntity.ok("Local eliminado correctamente.");
-    }
+		return ResponseEntity.ok("Local eliminado correctamente.");
+	}
 
-    // ============================
-    //         UTIL METHODS
-    // ============================
-    @GetMapping("/existe/{id}")
-    public ResponseEntity<Boolean> existeLocal(@PathVariable Integer id) {
-        boolean existe = localService.exist(id);
-        return ResponseEntity.ok(existe);
-    }
+	@GetMapping("/existe/{id}")
+	public ResponseEntity<Boolean> existeLocal(@PathVariable Integer id) {
+		boolean existe = localService.exist(id);
+		return ResponseEntity.ok(existe);
+	}
 
-    @GetMapping("/count")
-    public ResponseEntity<Long> countLocales() {
-        long count = localService.count();
-        return ResponseEntity.ok(count);
-    }
+	@GetMapping("/count")
+	public ResponseEntity<Long> countLocales() {
+		long count = localService.count();
+		return ResponseEntity.ok(count);
+	}
 }

@@ -1,7 +1,9 @@
 package co.edu.unbosque.retazoTextil.controller;
 
 import co.edu.unbosque.retazoTextil.dto.ClienteDTO;
+import co.edu.unbosque.retazoTextil.model.Cliente;
 import co.edu.unbosque.retazoTextil.service.ClienteService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,5 +71,14 @@ public class ClienteController {
 	public ResponseEntity<Long> countClientes() {
 		long count = clienteService.count();
 		return ResponseEntity.ok(count);
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<?> validarCredenciales(@RequestBody ClienteDTO loginRequest) {
+		Cliente result = clienteService.validateCredentials(loginRequest.getIdCliente(), loginRequest.getContrasenia());
+		if (result != null) {
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.status(401).body("Credenciales incorrectas.");
 	}
 }

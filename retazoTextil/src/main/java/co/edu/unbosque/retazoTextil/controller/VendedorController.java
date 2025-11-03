@@ -18,11 +18,11 @@ public class VendedorController {
     private VendedorService vendedorServ;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody VendedorEmpleadoRequest request) {
+    public ResponseEntity<?> create(@RequestBody VendedorEmpleadoRequest request) {
         int result = vendedorServ.create(request.getVendedor(), request.getEmpleado());
         switch (result) {
             case 1:
-                return ResponseEntity.badRequest().body("❌ Datos nulos en la solicitud.");
+                return ResponseEntity.badRequest().body(request);
             case 2:
                 return ResponseEntity.badRequest().body("❌ Ya existe un vendedor con ese id.");
             case 3:

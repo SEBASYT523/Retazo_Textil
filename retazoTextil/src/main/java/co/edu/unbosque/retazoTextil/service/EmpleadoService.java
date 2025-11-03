@@ -125,12 +125,12 @@ public class EmpleadoService {
 		return empleadoRepo.findById(id).isPresent();
 	}
 
-	public int validateCredentials(Integer id, String password) {
+	public Empleado validateCredentials(Integer id, String password) {
 		Optional<Empleado> opt = empleadoRepo.findById(id);
 		if (opt.isPresent() && AESUtil.validatePassword(password, opt.get().getContrasenia())) {
-			return 0;
+			return opt.get();
 		}
-		return 1;
+		return null ;
 	}
 	
 	public Empleado saveEntity(Empleado empleado) {
