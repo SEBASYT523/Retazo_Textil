@@ -1,7 +1,6 @@
 package co.edu.unbosque.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class PedidoDTO {
 
@@ -9,7 +8,7 @@ public class PedidoDTO {
 
 	private Integer productoId;
 
-	private LocalDate fechaPedidoDTO;
+	private String fechaPedidoDTO;
 
 	private Integer cantidad;
 
@@ -18,19 +17,11 @@ public class PedidoDTO {
 	public PedidoDTO() {
 	}
 
-	public PedidoDTO(Integer productoId, LocalDate fechaPedidoDTO, Integer cantidad, BigDecimal total) {
-		super();
-		this.productoId = productoId;
-		this.fechaPedidoDTO = fechaPedidoDTO;
-		this.cantidad = cantidad;
-		this.total = total;
-	}
-
-	public LocalDate getFechaPedidoDTO() {
+	public String getFechaPedidoDTO() {
 		return fechaPedidoDTO;
 	}
 
-	public void setFechaPedidoDTO(LocalDate fechaPedidoDTO) {
+	public void setFechaPedidoDTO(String fechaPedidoDTO) {
 		this.fechaPedidoDTO = fechaPedidoDTO;
 	}
 

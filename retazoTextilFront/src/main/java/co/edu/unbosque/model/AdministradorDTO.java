@@ -1,9 +1,10 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class AdministradorDTO {
+public class AdministradorDTO implements Serializable{
 
 	private Integer idEmpleado;
 

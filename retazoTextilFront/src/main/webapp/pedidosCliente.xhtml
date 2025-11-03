@@ -127,7 +127,7 @@
 
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <p:button outcome="cliente" styleClass="nav-link" value="🏠 Dashboard"/>
+                        <p:button outcome="dashboard-cliente" styleClass="nav-link" value="🏠 Dashboard"/>
                     </li>
                     <li class="nav-item">
                         <p:button outcome="pedidosCliente" styleClass="nav-link active" value="📦 Mis Pedidos"/>
@@ -165,7 +165,7 @@
                      
 
                         <p:column headerText="Fecha">
-                            <h:outputText value="#{pedido.fechaPedido}" />
+                            <h:outputText value="#{pedido.fechaPedidoDTO}" />
                         </p:column>
 
                         <p:column headerText="Cantidad">
@@ -190,9 +190,9 @@
                         <h:panelGrid columns="2" cellpadding="5">
                          
                             <h:outputText value="Fecha:" />
-                            <h:outputText value="#{PedidoBean.pedidoSeleccionado.fechaPedido}" />
+                            <h:outputText value="#{PedidoBean.pedidoSeleccionado.fechaPedidoDTO}" />
 
-                            <h:outputText value="Estado:" />
+                            <h:outputText value="Cantidad:" />
                             <h:outputText value="#{PedidoBean.pedidoSeleccionado.cantidad}" />
 
                             <h:outputText value="Total:" />

@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class GuardarDTO {
+import java.io.Serializable;
+
+public class GuardarDTO implements Serializable{
 
 	private Integer productoId;
 

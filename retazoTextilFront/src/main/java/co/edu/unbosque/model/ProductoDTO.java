@@ -1,10 +1,11 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 
-public class ProductoDTO {
+public class ProductoDTO implements Serializable {
 
 	private Integer codProducto;
 

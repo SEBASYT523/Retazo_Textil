@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class VendedorDTO {
+import java.io.Serializable;
+
+public class VendedorDTO implements Serializable{
 
 	private Integer idEmpleado;
 

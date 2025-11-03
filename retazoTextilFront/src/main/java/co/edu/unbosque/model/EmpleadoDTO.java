@@ -1,10 +1,11 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public class EmpleadoDTO {
+public class EmpleadoDTO implements Serializable{
 
 	private Integer idEmpleado;
 	private String primerNombreEmpleado;

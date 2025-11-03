@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class AccederDTO {
+import java.io.Serializable;
+
+public class AccederDTO implements Serializable{
 
 	private Integer bodegaId;
 	private Integer vendedorId;

@@ -178,16 +178,22 @@
                 
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <p:button outcome="cliente" styleClass="nav-link active" value="🏠 Dashboard"/>
+                        <p:button outcome="dashboard-cliente" styleClass="nav-link active" value="🏠 Dashboard"/>
                     </li>
                     <li class="nav-item">
-                        <p:button outcome="pedidosCliente" styleClass="nav-link" value="📦 Mis Pedidos"/>
+						<p:commandButton 
+    value="📦 Ver Mis Pedidos" 
+    action="#{PedidoBean.cargarPedidos}" 
+    styleClass="action-btn" 
+    ajax="false"/>
+
                     </li>
                     <li class="nav-item">
                         <p:button outcome="productosCliente" styleClass="nav-link" value="🛍️ Productos"/>
                     </li>
                     <li class="nav-item">
                         <p:commandButton value="🚪 Cerrar Sesión"
+                        				 
                                          action="#{ClienteBean.cerrarSesion}"
                                          styleClass="nav-link"
                                          ajax="false"/>

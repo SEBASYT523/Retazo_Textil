@@ -1,9 +1,10 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class ProveedorDTO {
+public class ProveedorDTO implements Serializable{
 
 	private Integer idProveedor;
 

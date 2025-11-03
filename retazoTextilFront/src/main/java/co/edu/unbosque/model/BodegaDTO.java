@@ -1,8 +1,9 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class BodegaDTO {
+public class BodegaDTO implements Serializable{
 
 	private Integer numeroBodega;
 

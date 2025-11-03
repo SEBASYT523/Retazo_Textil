@@ -1,9 +1,10 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class VentaDTO {
+public class VentaDTO implements Serializable {
 
 	private Integer codigoVenta;
 

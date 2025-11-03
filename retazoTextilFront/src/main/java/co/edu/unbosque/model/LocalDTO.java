@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class LocalDTO {
+import java.io.Serializable;
+
+public class LocalDTO implements Serializable{
 
 	private Integer numeroLocal;
 

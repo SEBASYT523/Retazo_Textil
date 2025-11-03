@@ -51,7 +51,7 @@ public class PedidoController {
 	}
 	
 	@GetMapping("/cliente/pedido/{idCliente}")
-    public List<PedidoDTO> obtenerPedidosPorCliente(@PathVariable Integer idCliente) {
-        return pedidoService.obtenerPedidosPorCliente(idCliente);
+    public ResponseEntity<List<PedidoDTO>> obtenerPedidosPorCliente(@PathVariable Integer idCliente) {
+        return ResponseEntity.ok(pedidoService.obtenerPedidosPorCliente(idCliente));
     }
 }

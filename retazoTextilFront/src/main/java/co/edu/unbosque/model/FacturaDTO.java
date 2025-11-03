@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class FacturaDTO {
+import java.io.Serializable;
+
+public class FacturaDTO implements Serializable{
 
 	private Integer numeroFactura;
 

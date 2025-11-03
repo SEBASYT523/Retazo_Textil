@@ -135,7 +135,6 @@ public class ClienteBean implements Serializable {
 
     public String cerrarSesion() {
         clienteActual = null;
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index.xhtml?faces-redirect=true";
     }
 

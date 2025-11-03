@@ -1,8 +1,9 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class ContactarDTO {
+public class ContactarDTO implements Serializable{
 
 	private LocalDate fechaSolicitud;
 
