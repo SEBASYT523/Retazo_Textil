@@ -128,6 +128,14 @@
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .bodegas-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .section-title {
@@ -141,6 +149,12 @@
         .actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .bodegas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
         }
         
@@ -160,6 +174,44 @@
         
         .action-btn:hover {
             background: var(--lila-dark);
+        }
+        
+        .bodega-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .bodega-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bodega-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .bodega-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .bodega-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .bodega-description {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            line-height: 1.4;
         }
     </style>
 </h:head>
@@ -223,7 +275,48 @@
                 <h2 class="section-title">Acciones Rápidas</h2>
                 <div class="actions-grid">
                     <p:button value="🛒 Nueva Venta" outcome="nuevaVentaVendedor" styleClass="action-btn"/>
-                    <p:button value="📦 Inventario"  styleClass="action-btn"/>
+                    <p:button value="📦 Inventario" styleClass="action-btn"/>
+                </div>
+            </div>
+            
+            <!-- Bodegas -->
+            <div class="bodegas-section">
+                <h2 class="section-title">Bodegas</h2>
+                <p style="color: #666; margin-bottom: 1.5rem;">Bodegas que puede acceder el vendedor</p>
+                
+                <div class="bodegas-grid">
+                    <!-- Bodega 1 -->
+                    <div class="bodega-card">
+                        <span class="bodega-icon">🏭</span>
+                        <div class="bodega-number">#001</div>
+                        <div class="bodega-label">Bodega Central</div>
+                        <div class="bodega-description">
+                            Principal • 28 productos<br>
+                            Estado: <strong>Activa</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Bodega 2 -->
+                    <div class="bodega-card">
+                        <span class="bodega-icon">🧭</span>
+                        <div class="bodega-number">#002</div>
+                        <div class="bodega-label">Bodega Norte</div>
+                        <div class="bodega-description">
+                            Zona Industrial • 15 productos<br>
+                            Estado: <strong>Activa</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Bodega 3 -->
+                    <div class="bodega-card">
+                        <span class="bodega-icon">📍</span>
+                        <div class="bodega-number">#003</div>
+                        <div class="bodega-label">Bodega Sur</div>
+                        <div class="bodega-description">
+                            Distrito Sur • 8 productos<br>
+                            Estado: <strong>En mantenimiento</strong>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
