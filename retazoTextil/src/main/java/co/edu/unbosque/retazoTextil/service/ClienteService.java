@@ -28,7 +28,7 @@ public class ClienteService {
 	// ✅ Crear cliente
 	public int create(ClienteDTO data) {
 		Cliente cliente = new Cliente();
-
+		cliente.setIdCliente(data.getIdCliente());
 		cliente.setPrimerNombre(data.getPrimerNombre());
 		cliente.setSegundoNombre(data.getSegundoNombre());
 		cliente.setPrimerApellido(data.getPrimerApellido());
