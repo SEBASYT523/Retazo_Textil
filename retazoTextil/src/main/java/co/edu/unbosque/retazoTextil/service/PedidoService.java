@@ -2,6 +2,7 @@ package co.edu.unbosque.retazoTextil.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,21 @@ public class PedidoService {
         );
 
         return pedidoRepo.save(pedido);
+    }
+    
+    public List<PedidoDTO> obtenerPedidosPorCliente(Integer idCliente) {
+        return pedidoRepo.findByCliente_IdCliente(idCliente)
+                .stream()
+                .map(p -> {
+                    PedidoDTO dto = new PedidoDTO();
+                    dto.setClienteId(p.getCliente().getIdCliente());
+                    dto.setProductoId(p.getProducto().getCodProducto());
+                    dto.setFechaPedidoDTO(p.getFechaPedido());
+                    dto.setCantidad(p.getCantidad());
+                    dto.setTotal(p.getTotal());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Mis Pedidos - Retazo Textil</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --lila: #8e44ad;
+            --lila-dark: #7d3c98;
+            --accent: #3498db;
+            --light: #ecf0f1;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: var(--lila);
+        }
+
+        .nav-link.active {
+            background: var(--lila);
+        }
+
+        .main-content {
+            padding: 2rem;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .pedidos-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--lila);
+            padding-bottom: 0.5rem;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #777;
+            padding: 2rem;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form id="pedidosForm">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>🧵 Retazo Textil</h2>
+                    <p>Panel del Cliente</p>
+                </div>
+
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <p:button outcome="cliente" styleClass="nav-link" value="🏠 Dashboard"/>
+                    </li>
+                    <li class="nav-item">
+                        <p:button outcome="pedidosCliente" styleClass="nav-link active" value="📦 Mis Pedidos"/>
+                    </li>
+                    <li class="nav-item">
+                        <p:button outcome="productosCliente" styleClass="nav-link" value="🛍️ Productos"/>
+                    </li>
+                    <li class="nav-item">
+                        <p:commandButton value="🚪 Cerrar Sesión"
+                                         action="#{ClienteBean.cerrarSesion}"
+                                         styleClass="nav-link"
+                                         ajax="false"/>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="main-content">
+                <div class="header">
+                    <h1 class="page-title">📦 Mis Pedidos</h1>
+                    <p class="welcome-text">
+                        Aquí puedes ver el historial de tus pedidos, <strong>#{ClienteBean.nombreCompleto}</strong>.
+                    </p>
+                </div>
+
+                <div class="pedidos-table">
+                    <h2 class="section-title">Historial de Pedidos</h2>
+
+                    <p:dataTable value="#{PedidoClienteBean.pedidos}" var="pedido"
+                                 paginator="true" rows="6"
+                                 emptyMessage="No tienes pedidos aún 😔"
+                                 style="width:100%; border-radius:10px;"
+                                 responsiveLayout="scroll">
+
+                        <p:column headerText="ID Pedido">
+                            <h:outputText value="#{pedido.idPedido}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha">
+                            <h:outputText value="#{pedido.fechaPedido}" />
+                        </p:column>
+
+                        <p:column headerText="Estado">
+                            <h:outputText value="#{pedido.estado}" />
+                        </p:column>
+
+                        <p:column headerText="Total ($)">
+                            <h:outputText value="#{pedido.total}" />
+                        </p:column>
+
+                        <p:column headerText="Detalles">
+                            <p:commandButton value="🔍 Ver"
+                                             actionListener="#{PedidoClienteBean.verDetalles(pedido)}"
+                                             update=":pedidosForm:detalleDialog"
+                                             oncomplete="PF('detalleDialog').show()"
+                                             styleClass="ui-button-outlined ui-button-secondary" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <!-- Dialog Detalles -->
+                    <p:dialog header="Detalles del Pedido" widgetVar="detalleDialog" modal="true" resizable="false" id="detalleDialog" width="400">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="ID:" />
+                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.idPedido}" />
+
+                            <h:outputText value="Fecha:" />
+                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.fechaPedido}" />
+
+                            <h:outputText value="Estado:" />
+                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.estado}" />
+
+                            <h:outputText value="Total:" />
+                            <h:outputText value="#{PedidoClienteBean.pedidoSeleccionado.total}" />
+                        </h:panelGrid>
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>

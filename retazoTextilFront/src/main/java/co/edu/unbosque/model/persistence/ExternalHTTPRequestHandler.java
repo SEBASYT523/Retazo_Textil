@@ -35,8 +35,9 @@ public class ExternalHTTPRequestHandler {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		return respuesta.statusCode() + "";
+		System.out.println(respuesta.statusCode());
+		System.out.println(respuesta.body());
+		return respuesta.statusCode() +"\n" + respuesta.body();
 	}
 
 	public static String doPostLogin(String url, String json) {
@@ -118,10 +119,10 @@ public class ExternalHTTPRequestHandler {
 		return response.statusCode() + "";
 	}
 
-	public static String doGet(String url, String token) {
+	public static String doGet(String url) {
 
 		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url))
-				.header("Content-Type", "application/json").header("Authorization", "Bearer " + token).build();
+				.header("Content-Type", "application/json").header("Authorization", "Bearer " ).build();
 		HttpResponse<String> response = null;
 		try {
 			response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());

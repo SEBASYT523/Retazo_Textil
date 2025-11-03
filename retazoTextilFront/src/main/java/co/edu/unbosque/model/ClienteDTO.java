@@ -28,8 +28,9 @@ public class ClienteDTO {
 	public ClienteDTO() {
 	}
 
-	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+	public ClienteDTO(Integer idCliente,String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
 			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento) {
+		this.idCliente = idCliente;
 		this.primerNombre = primerNombre;
 		this.segundoNombre = segundoNombre;
 		this.primerApellido = primerApellido;

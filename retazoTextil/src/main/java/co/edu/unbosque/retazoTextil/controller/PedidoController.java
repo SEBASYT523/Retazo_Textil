@@ -49,4 +49,9 @@ public class PedidoController {
 		}
 		return ResponseEntity.ok("✅ Pedido eliminado correctamente.");
 	}
+	
+	@GetMapping("/cliente/{idCliente}")
+    public List<PedidoDTO> obtenerPedidosPorCliente(@PathVariable Integer idCliente) {
+        return pedidoService.obtenerPedidosPorCliente(idCliente);
+    }
 }

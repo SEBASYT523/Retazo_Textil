@@ -186,7 +186,7 @@
                         <label class="form-label">Usuario</label>
                         <p:inputText styleClass="form-input"
                                      placeholder="Ingresa tu usuario"
-                                     value="#{LoginBean.idCliente}"
+                                     value="#{ClienteBean.idCliente}"
                                      required="true"
                                      requiredMessage="El usuario es obligatorio" />
                     </div>
@@ -195,14 +195,14 @@
                         <label class="form-label">Contraseña</label>
                         <p:password styleClass="form-input"
                                     placeholder="Ingresa tu contraseña"
-                                    value="#{LoginBean.contraseniaCliente}"
+                                    value="#{ClienteBean.contrasenia}"
                                     feedback="false"
                                     required="true"
                                     requiredMessage="La contraseña es obligatoria" />
                     </div>
 
                     <p:commandButton value="INICIAR SESIÓN"
-                                     action="#{LoginBean.loginCliente}"
+                                     action="#{ClienteBean.loginCliente}"
                                      styleClass="login-btn"
                                      update="loginFormCliente"
                                      ajax="true" />
