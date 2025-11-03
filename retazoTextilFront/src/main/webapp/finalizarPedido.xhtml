@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Finalizar Pedido - Retazo Textil</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .pedido-info {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .info-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .info-value {
+            color: #666;
+        }
+        
+        .productos-list {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .producto-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .total-section {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: right;
+            margin-top: 20px;
+        }
+        
+        .total-amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .acciones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .btn-volver {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .btn-confirmar {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-volver:hover {
+            background: #5a6268;
+        }
+        
+        .btn-confirmar:hover {
+            background: #229954;
+        }
+        
+        .metodo-pago {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .metodo-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .metodo-option:hover {
+            border-color: #3498db;
+        }
+        
+        .metodo-option.selected {
+            border-color: #27ae60;
+            background: #e8f5e8;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="header">
+            <h1>✅ Finalizar Pedido</h1>
+            <p>Confirma los detalles de la compra antes de proceder al pago</p>
+        </div>
+
+        <h:form id="formPedido">
+            <div class="pedido-info">
+                <!-- Información del Cliente -->
+                <div class="info-section">
+                    <div class="section-title">👤 Información del Cliente</div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">ID Cliente:</span>
+                            <span class="info-value">CLI-001</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nombre:</span>
+                            <span class="info-value">Ana María García</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">ana.garcia@email.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Teléfono:</span>
+                            <span class="info-value">300-123-4567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Productos Comprados -->
+                <div class="info-section">
+                    <div class="section-title">📦 Productos Comprados</div>
+                    <div class="info-item">
+                        <span class="info-label">ID Pedido:</span>
+                        <span class="info-value">PED-2024-001</span>
+                    </div>
+                    
+                    <div class="productos-list">
+                        <div class="producto-item">
+                            <span>Mezclilla Resistente</span>
+                            <span>2 metros × $28.75</span>
+                            <span><strong>$57.50</strong></span>
+                        </div>
+                        <div class="producto-item">
+                            <span>Tul Decorativo</span>
+                            <span>3 metros × $18.99</span>
+                            <span><strong>$56.97</strong></span>
+                        </div>
+                        <div class="producto-item">
+                            <span>Lana Invernal</span>
+                            <span>1 metro × $35.25</span>
+                            <span><strong>$35.25</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medio de Pago -->
+                <div class="info-section">
+                    <div class="section-title">💳 Medio de Pago</div>
+                    <div class="metodo-pago">
+                        <div class="metodo-option selected">
+                            💵 Efectivo
+                        </div>
+                        <div class="metodo-option">
+                            💳 Tarjeta Crédito
+                        </div>
+                        <div class="metodo-option">
+                            🏦 Tarjeta Débito
+                        </div>
+                        <div class="metodo-option">
+                            📱 Transferencia
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total de la Compra -->
+                <div class="total-section">
+                    <div class="section-title">💰 Total de la Compra</div>
+                    <div class="total-amount">$149.72</div>
+                    <p style="color: #666; margin-top: 5px;">IVA incluido</p>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="acciones">
+                    <p:commandButton value="← Volver a Venta" 
+                                   action="nuevaVentaVendedor"
+                                   styleClass="btn-volver"
+                                   immediate="true"/>
+                                   
+                    <p:commandButton value="✅ Confirmar Pedido" 
+                                   action="#{pedidoBean.confirmarPedido}"
+                                   styleClass="btn-confirmar"/>
+                </div>
+            </div>
+        </h:form>
+    </div>
+
+    <script>
+        // Script para seleccionar método de pago
+        document.addEventListener('DOMContentLoaded', function() {
+            const metodos = document.querySelectorAll('.metodo-option');
+            metodos.forEach(metodo => {
+                metodo.addEventListener('click', function() {
+                    metodos.forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</h:body>
+</html>

@@ -1,368 +1,204 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
 <h:head>
     <title>Nueva Venta - Retazo Textil</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --lila: #8e44ad;
-            --lila-dark: #7d3c98;
-            --accent: #3498db;
-            --light: #ecf0f1;
-            --success: #27ae60;
-        }
-        
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-        }
-        
-        .sales-container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            min-height: 100vh;
-        }
-        
-        .sidebar {
-            background: var(--primary);
-            color: white;
-            padding: 2rem 1rem;
-        }
-        
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .nav-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .nav-item {
-            margin-bottom: 0.5rem;
-        }
-        
-        .nav-link {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-            font-size: inherit;
-            cursor: pointer;
-        }
-        
-        .nav-link:hover {
-            background: var(--lila);
-        }
-        
-        .nav-link.active {
-            background: var(--lila);
-        }
-        
-        .main-content {
-            padding: 2rem;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
         }
         
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .page-title {
-            color: var(--primary);
-            margin: 0;
-            font-size: 1.8rem;
-        }
-        
-        .back-btn {
-            background: var(--lila);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        .back-btn:hover {
-            background: var(--lila-dark);
-        }
-        
-        .products-section {
-            background: white;
-            padding: 2rem;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            margin-bottom: 25px;
         }
         
-        .section-title {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--lila);
-            padding-bottom: 0.5rem;
-        }
-        
-        .products-grid {
+        .productos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
-        .product-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .producto-card {
             background: white;
-        }
-        
-        .product-card:hover {
-            border-color: var(--lila);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, var(--lila), var(--lila-dark));
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-        
-        .product-name {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-        
-        .product-description {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-            font-size: 0.9rem;
-        }
-        
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--lila);
-            margin-bottom: 1rem;
-        }
-        
-        .product-stock {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        
-        .stock-available {
-            color: var(--success);
-            font-weight: 600;
-        }
-        
-        .add-to-cart {
-            width: 100%;
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
-        
-        .add-to-cart:hover {
-            background: #219653;
-        }
-        
-        .cart-section {
-            background: white;
-            padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-left: 4px solid #3498db;
         }
         
-        .cart-items {
-            margin-bottom: 1.5rem;
+        .producto-nombre {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
         
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .cart-total {
-            text-align: right;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 2px solid var(--lila);
-        }
-        
-        .empty-cart {
-            text-align: center;
+        .producto-descripcion {
             color: #666;
-            padding: 2rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .producto-precio {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 5px;
+        }
+        
+        .producto-stock {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .btn-agregar {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        .btn-agregar:hover {
+            background: #2980b9;
+        }
+        
+        .carrito-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .carrito-vacio {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px;
             font-style: italic;
+        }
+        
+        .carrito-total {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #bdc3c7;
+        }
+        
+        .btn-finalizar {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        
+        .btn-finalizar:hover {
+            background: #229954;
+        }
+        
+        .acciones-carrito {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
         }
     </style>
 </h:head>
+
 <h:body>
-    <div class="sales-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2>🧵 Retazo Textil</h2>
-                <p>Nueva Venta</p>
-            </div>
-            
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <p:button outcome="cliente" styleClass="nav-link" value="🏠 Dashboard"/>
-                </li>
-                <li class="nav-item">
-                    <p:button outcome="nuevaVentaVendedor" styleClass="nav-link active" value="🛒 Nueva Venta"/>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">👥 Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">📊 Ventas</a>
-                </li>
-                <li class="nav-item">
-                    <p:button outcome="index" styleClass="nav-link" value="🚪 Cerrar Sesión"/>
-                </li>
-            </ul>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 Retazo Textil - Nueva Venta</h1>
+            <p>Selecciona los productos para la venta actual</p>
         </div>
-        
-        <!-- Contenido Principal -->
-        <div class="main-content">
-            <div class="header">
-                <h1 class="page-title">Nueva Venta - Productos Textiles</h1>
-                <p:button value="← Volver al Dashboard" outcome="cliente" styleClass="back-btn"/>
-            </div>
-            
+
+        <h:form id="formVenta">
             <!-- Productos Disponibles -->
-            <div class="products-section">
-                <h2 class="section-title">Catálogo de Productos Textiles</h2>
-                
-                <div class="products-grid">
-                    <!-- Producto 1 -->
-                    <div class="product-card">
-                        <div class="product-image">🧵</div>
-                        <div class="product-name">Algodón Premium</div>
-                        <div class="product-description">Tela de algodón 100% natural de alta calidad, perfecta para confección de ropa cómoda y durable.</div>
-                        <div class="product-price">$24.99 / metro</div>
-                        <div class="product-stock">Stock: <span class="stock-available">150 metros</span></div>
-                        <button class="add-to-cart">Agregar al Carrito</button>
+            <div class="productos-grid">
+                <!-- Mezclilla Resistente -->
+                <div class="producto-card">
+                    <div class="producto-nombre">Mezclilla Resistente</div>
+                    <div class="producto-descripcion">
+                        Denim de alta resistencia, ideal para prendas de trabajo, uniformes y moda casual.
                     </div>
-                    
-                    <!-- Producto 2 -->
-                    <div class="product-card">
-                        <div class="product-image">👑</div>
-                        <div class="product-name">Seda Natural</div>
-                        <div class="product-description">Seda pura de alta calidad importada, ideal para prendas elegantes y de lujo.</div>
-                        <div class="product-price">$49.99 / metro</div>
-                        <div class="product-stock">Stock: <span class="stock-available">75 metros</span></div>
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                    <div class="producto-precio">$28.75 / metro</div>
+                    <div class="producto-stock">
+                        <strong>Stock: 200 metros</strong>
                     </div>
-                    
-                    <!-- Producto 3 -->
-                    <div class="product-card">
-                        <div class="product-image">🌿</div>
-                        <div class="product-name">Lino Ecológico</div>
-                        <div class="product-description">Tela de lino sostenible y ecológica, perfecta para prendas de verano y decoración.</div>
-                        <div class="product-price">$32.50 / metro</div>
-                        <div class="product-stock">Stock: <span class="stock-available">120 metros</span></div>
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                    <p:commandButton value="Agregar al Carrito" styleClass="btn-agregar"/>
+                </div>
+
+                <!-- Tul Decorativo -->
+                <div class="producto-card">
+                    <div class="producto-nombre">Tul Decorativo</div>
+                    <div class="producto-descripcion">
+                        Tul de alta calidad para decoración, vestidos de novia y eventos especiales.
                     </div>
-                    
-                    <!-- Producto 4 -->
-                    <div class="product-card">
-                        <div class="product-image">👖</div>
-                        <div class="product-name">Mezclilla Resistente</div>
-                        <div class="product-description">Denim de alta resistencia, ideal para prendas de trabajo, uniformes y moda casual.</div>
-                        <div class="product-price">$28.75 / metro</div>
-                        <div class="product-stock">Stock: <span class="stock-available">200 metros</span></div>
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                    <div class="producto-precio">$18.99 / metro</div>
+                    <div class="producto-stock">
+                        <strong>Stock: 90 metros</strong>
                     </div>
-                    
-                    <!-- Producto 5 -->
-                    <div class="product-card">
-                        <div class="product-image">✨</div>
-                        <div class="product-name">Tul Decorativo</div>
-                        <div class="product-description">Tul de alta calidad para decoración, vestidos de novia y eventos especiales.</div>
-                        <div class="product-price">$18.99 / metro</div>
-                        <div class="product-stock">Stock: <span class="stock-available">90 metros</span></div>
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                    <p:commandButton value="Agregar al Carrito" styleClass="btn-agregar"/>
+                </div>
+
+                <!-- Lana Invernal -->
+                <div class="producto-card">
+                    <div class="producto-nombre">Lana Invernal</div>
+                    <div class="producto-descripcion">
+                        Lana natural premium para prendas de invierno, suéteres y abrigos de alta calidad.
                     </div>
-                    
-                    <!-- Producto 6 -->
-                    <div class="product-card">
-                        <div class="product-image">🧶</div>
-                        <div class="product-name">Lana Invernal</div>
-                        <div class="product-description">Lana natural premium para prendas de invierno, suéteres y abrigos de alta calidad.</div>
-                        <div class="product-price">$35.25 / metro</div>
-                        <div class="product-stock">Stock: <span class="stock-available">80 metros</span></div>
-                        <button class="add-to-cart">Agregar al Carrito</button>
+                    <div class="producto-precio">$35.25 / metro</div>
+                    <div class="producto-stock">
+                        <strong>Stock: 80 metros</strong>
                     </div>
+                    <p:commandButton value="Agregar al Carrito" styleClass="btn-agregar"/>
                 </div>
             </div>
-            
+
             <!-- Carrito de Compras -->
-            <div class="cart-section">
-                <h2 class="section-title">Carrito de Compras</h2>
-                <div class="cart-items">
-                    <div class="empty-cart">
-                        🛒 El carrito está vacío
-                        <br />
-                        <small>Selecciona productos para agregar al carrito</small>
-                    </div>
+            <div class="carrito-section">
+                <h2>🛒 Carrito de Compras</h2>
+                
+                <div class="carrito-vacio">
+                    El carrito está vacío<br/>
+                    <small>Selecciona productos para agregar al carrito</small>
                 </div>
-                <div class="cart-total">
+                
+                <div class="carrito-total">
                     Total: $0.00
                 </div>
+                
+                <!-- Botón Finalizar Pedido -->
+                <div class="acciones-carrito">
+                    <p:commandButton value="✅ Finalizar Pedido" 
+                                   action="finalizarPedido"
+                                   styleClass="btn-finalizar"
+                                   immediate="true"/>
+                </div>
             </div>
-        </div>
+        </h:form>
     </div>
 </h:body>
 </html>
