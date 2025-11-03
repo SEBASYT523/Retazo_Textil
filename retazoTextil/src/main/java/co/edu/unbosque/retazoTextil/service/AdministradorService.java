@@ -9,6 +9,8 @@ import co.edu.unbosque.retazoTextil.model.Empleado;
 import co.edu.unbosque.retazoTextil.model.Proveedor;
 import co.edu.unbosque.retazoTextil.repository.AdministradorRepository;
 import co.edu.unbosque.retazoTextil.util.AESUtil;
+import jakarta.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,58 +43,53 @@ public class AdministradorService {
 		return AdministradorRepo.existsById(id);
 	}
 
-	public int create(AdministradorDTO data, EmpleadoDTO empleado) {
-		if (findIdAlreadyTaken(data.getIdEmpleado())) {
-			return 1;
-		}
-		empleadoServ.create(empleado);
-		Administrador entity = new Administrador();
+	
+	@Transactional
+	public int create(AdministradorDTO adminDto, EmpleadoDTO empleadoDto) {
+	    if (empleadoServ.findIdAlreadyTaken(empleadoDto.getIdEmpleado())) {
+	        return 1; 
+	    }
 
-		entity.setEmpleado(modelMapper.map(empleado, Empleado.class));
-        entity.setNumeroCubiculo(Integer.parseInt(AESUtil.encrypt(data.getNumeroCubiculo().toString())));
-        
-		AdministradorRepo.save(entity);
-		return 0;
+	    Empleado nuevoEmpleado = modelMapper.map(empleadoDto, Empleado.class);
+	    nuevoEmpleado.setContrasenia(AESUtil.hashinBCrypt(empleadoDto.getContrasenia()));
+
+	    Administrador administrador = new Administrador();
+	    administrador.setNumeroCubiculo(adminDto.getNumeroCubiculo());
+
+	    administrador.setEmpleado(nuevoEmpleado);
+	    nuevoEmpleado.setAdministrador(administrador);
+
+	    empleadoServ.saveEntity(nuevoEmpleado);
+
+	    return 0;
 	}
 
 	public List<AdministradorDTO> getAll() {
 		List<Administrador> entities = AdministradorRepo.findAll();
 		List<AdministradorDTO> dtos = new ArrayList<>();
 		for (Administrador u : entities) {
-			Empleado e = u.getEmpleado();
-			
-			e.setDireccionEmpleado(AESUtil.decrypt(e.getDireccionEmpleado()));
-			e.setTelefonoEmpleado(AESUtil.decrypt(e.getTelefonoEmpleado()));
-			e.setPrimerNombreEmpleado(AESUtil.decrypt(e.getPrimerNombreEmpleado()));
-			e.setSegundoNombreEmpleado(AESUtil.decrypt(e.getSegundoNombreEmpleado()));
-			e.setPrimerApellidoEmpleado(AESUtil.decrypt(e.getPrimerApellidoEmpleado()));
-			e.setSegundoApellidoEmpleado(AESUtil.decrypt(e.getSegundoApellidoEmpleado()));
-			e.setSalario(Double.valueOf(AESUtil.decrypt(e.getSalario() + "")));
-		
-		
-			 AdministradorDTO dto = new AdministradorDTO();
-			 
-	            dto.setIdEmpleado(u.getIdEmpleado());
-	            dto.setNumeroCubiculo(Integer.parseInt(AESUtil.decrypt(u.getNumeroCubiculo().toString())));
 
-	            if (u.getProveedores() != null) {
-	                List<Integer> proveedoresIds = new ArrayList<>();
-	                for (Proveedor p : u.getProveedores()) {
-	                    proveedoresIds.add(p.getIdProveedor());
-	                }
-	                dto.setProveedoresId(proveedoresIds);
-	            }
+			AdministradorDTO dto = new AdministradorDTO();
 
-	            if (u.getContactos() != null) {
-	                List<ContactarId> contactosIds = new ArrayList<>();
-	                for (Contactar c : u.getContactos()) {
-	                    contactosIds.add(c.getId());
-	                }
-	                dto.setContactosId(contactosIds);
-	            }
+			dto.setIdEmpleado(u.getIdEmpleado());
+			dto.setNumeroCubiculo(u.getNumeroCubiculo());
+			if (u.getProveedores() != null) {
+				List<Integer> proveedoresIds = new ArrayList<>();
+				for (Proveedor p : u.getProveedores()) {
+					proveedoresIds.add(p.getIdProveedor());
+				}
+				dto.setProveedoresId(proveedoresIds);
+			}
 
+			if (u.getContactos() != null) {
+				List<ContactarId> contactosIds = new ArrayList<>();
+				for (Contactar c : u.getContactos()) {
+					contactosIds.add(c.getId());
+				}
+				dto.setContactosId(contactosIds);
+			}
 
-	            dtos.add(dto);
+			dtos.add(dto);
 		}
 		return dtos;
 	}
@@ -104,21 +101,37 @@ public class AdministradorService {
 		}).orElse(1);
 	}
 
-	
-	public int updateById(Integer id, AdministradorDTO newData, EmpleadoDTO empleado) {
-		Optional<Administrador> opt = AdministradorRepo.findById(id);
-		if (opt.isEmpty()) {
-			return 2;
-		}
-		empleadoServ.updateById(id, empleado);
-		Administrador admin = opt.get();
+	 @Transactional
+	    public int updateById(Integer id, AdministradorDTO newData, EmpleadoDTO empleadoDto) {
+	        Optional<Administrador> opt = AdministradorRepo.findById(id);
+	        if (opt.isEmpty()) {
+	            return 2; 
+	        }
 
-		admin.setEmpleado(modelMapper.map(empleado, Empleado.class));
-		admin.setNumeroCubiculo(Integer.parseInt(AESUtil.encrypt(newData.getNumeroCubiculo().toString())));
-		
-		AdministradorRepo.save(admin);
-		return 0;
-	}
+	        int empResult = empleadoServ.updateById(id, empleadoDto);
+	        if (empResult != 0) {
+	            return 3;
+	        }
+
+	        Administrador admin = opt.get();
+
+	        Empleado managedEmpleado = empleadoServ.getEntityById(id);
+	        if (managedEmpleado == null) {
+	            return 3; 
+	        }
+
+	        admin.setEmpleado(managedEmpleado);
+	        managedEmpleado.setAdministrador(admin); 
+
+	        if (newData.getNumeroCubiculo() != null) {
+	            admin.setNumeroCubiculo(newData.getNumeroCubiculo());
+	        }
+
+	       
+	        AdministradorRepo.save(admin);
+
+	        return 0;
+	    }
 
 	public AdministradorDTO getById(Integer id) {
 		return AdministradorRepo.findById(id).map(u -> {

@@ -3,7 +3,6 @@ package co.edu.unbosque.retazoTextil.service;
 import co.edu.unbosque.retazoTextil.dto.ProveedorDTO;
 import co.edu.unbosque.retazoTextil.model.*;
 import co.edu.unbosque.retazoTextil.repository.*;
-import co.edu.unbosque.retazoTextil.util.AESUtil;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,17 +35,9 @@ public class ProveedorService {
         }
 
         Proveedor proveedor = new Proveedor();
-
-        proveedor.setPrimerNombreProveedor(AESUtil.encrypt(data.getPrimerNombreProveedor()));
-        proveedor.setSegundoNombreProveedor(AESUtil.encrypt(data.getSegundoNombreProveedor()));
-        proveedor.setPrimerApellidoProveedor(AESUtil.encrypt(data.getPrimerApellidoProveedor()));
-        proveedor.setSegundoApellidoProveedor(AESUtil.encrypt(data.getSegundoApellidoProveedor()));
-        proveedor.setTelefono(AESUtil.encrypt(data.getTelefono()));
-        proveedor.setCiudad(AESUtil.encrypt(data.getCiudad()));
-        proveedor.setPais(AESUtil.encrypt(data.getPais()));
-
         proveedor.setAdministrador(optAdmin.get());
 
+      
         List<Producto> productos = new ArrayList<>();
         if (data.getIntegers() != null) {
             for (Integer idProd : data.getIntegers()) {
@@ -63,8 +54,16 @@ public class ProveedorService {
         }
         proveedor.setContactos(contactos);
 
+        proveedor.setPrimerNombreProveedor(data.getPrimerNombreProveedor());
+        proveedor.setSegundoNombreProveedor(data.getSegundoNombreProveedor());
+        proveedor.setPrimerApellidoProveedor(data.getPrimerApellidoProveedor());
+        proveedor.setSegundoApellidoProveedor(data.getSegundoApellidoProveedor());
+        proveedor.setTelefono(data.getTelefono());
+        proveedor.setCiudad(data.getCiudad());
+        proveedor.setPais(data.getPais());
+
         proveedorRepo.save(proveedor);
-        return 0; 
+        return 0;
     }
 
     public List<ProveedorDTO> getAll() {
@@ -73,14 +72,6 @@ public class ProveedorService {
 
         for (Proveedor p : entities) {
             ProveedorDTO dto = modelMapper.map(p, ProveedorDTO.class);
-
-            dto.setPrimerNombreProveedor(AESUtil.decrypt(p.getPrimerNombreProveedor()));
-            dto.setSegundoNombreProveedor(AESUtil.decrypt(p.getSegundoNombreProveedor()));
-            dto.setPrimerApellidoProveedor(AESUtil.decrypt(p.getPrimerApellidoProveedor()));
-            dto.setSegundoApellidoProveedor(AESUtil.decrypt(p.getSegundoApellidoProveedor()));
-            dto.setTelefono(AESUtil.decrypt(p.getTelefono()));
-            dto.setCiudad(AESUtil.decrypt(p.getCiudad()));
-            dto.setPais(AESUtil.decrypt(p.getPais()));
 
             dto.setInteger(p.getAdministrador().getNumeroCubiculo());
 
@@ -111,14 +102,6 @@ public class ProveedorService {
         Proveedor p = opt.get();
         ProveedorDTO dto = modelMapper.map(p, ProveedorDTO.class);
 
-        dto.setPrimerNombreProveedor(AESUtil.decrypt(p.getPrimerNombreProveedor()));
-        dto.setSegundoNombreProveedor(AESUtil.decrypt(p.getSegundoNombreProveedor()));
-        dto.setPrimerApellidoProveedor(AESUtil.decrypt(p.getPrimerApellidoProveedor()));
-        dto.setSegundoApellidoProveedor(AESUtil.decrypt(p.getSegundoApellidoProveedor()));
-        dto.setTelefono(AESUtil.decrypt(p.getTelefono()));
-        dto.setCiudad(AESUtil.decrypt(p.getCiudad()));
-        dto.setPais(AESUtil.decrypt(p.getPais()));
-
         dto.setInteger(p.getAdministrador().getNumeroCubiculo());
 
         List<Integer> productosId = new ArrayList<>();
@@ -145,25 +128,25 @@ public class ProveedorService {
         Proveedor proveedor = optProveedor.get();
 
         if (newData.getPrimerNombreProveedor() != null)
-            proveedor.setPrimerNombreProveedor(AESUtil.encrypt(newData.getPrimerNombreProveedor()));
+            proveedor.setPrimerNombreProveedor(newData.getPrimerNombreProveedor());
 
         if (newData.getSegundoNombreProveedor() != null)
-            proveedor.setSegundoNombreProveedor(AESUtil.encrypt(newData.getSegundoNombreProveedor()));
+            proveedor.setSegundoNombreProveedor(newData.getSegundoNombreProveedor());
 
         if (newData.getPrimerApellidoProveedor() != null)
-            proveedor.setPrimerApellidoProveedor(AESUtil.encrypt(newData.getPrimerApellidoProveedor()));
+            proveedor.setPrimerApellidoProveedor(newData.getPrimerApellidoProveedor());
 
         if (newData.getSegundoApellidoProveedor() != null)
-            proveedor.setSegundoApellidoProveedor(AESUtil.encrypt(newData.getSegundoApellidoProveedor()));
+            proveedor.setSegundoApellidoProveedor(newData.getSegundoApellidoProveedor());
 
         if (newData.getTelefono() != null)
-            proveedor.setTelefono(AESUtil.encrypt(newData.getTelefono()));
+            proveedor.setTelefono(newData.getTelefono());
 
         if (newData.getCiudad() != null)
-            proveedor.setCiudad(AESUtil.encrypt(newData.getCiudad()));
+            proveedor.setCiudad(newData.getCiudad());
 
         if (newData.getPais() != null)
-            proveedor.setPais(AESUtil.encrypt(newData.getPais()));
+            proveedor.setPais(newData.getPais());
 
         if (newData.getInteger() != null) {
             Optional<Administrador> optAdmin = adminRepo.findById(newData.getInteger());
@@ -196,7 +179,7 @@ public class ProveedorService {
     public int deleteById(Integer id) {
         Optional<Proveedor> opt = proveedorRepo.findById(id);
         if (opt.isEmpty()) {
-            return 1;
+            return 1; 
         }
 
         proveedorRepo.delete(opt.get());

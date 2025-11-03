@@ -24,7 +24,7 @@ public class Venta {
 	private Empleado empleado;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "factura_numero_factura", nullable = false)
+	@JoinColumn(name = "factura_numero_factura", nullable = true)
 	private Factura factura;
 
 	public Venta() {

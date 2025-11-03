@@ -3,7 +3,6 @@ package co.edu.unbosque.retazoTextil.service;
 import co.edu.unbosque.retazoTextil.dto.FacturaDTO;
 import co.edu.unbosque.retazoTextil.model.*;
 import co.edu.unbosque.retazoTextil.repository.*;
-import co.edu.unbosque.retazoTextil.util.AESUtil;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class FacturaService {
 			factura.setVenta(optVenta.get());
 		}
 		
-		factura.setMetodoPago(AESUtil.encrypt(data.getMetodoPago()));
+		factura.setMetodoPago((data.getMetodoPago()));
 
 		facturaRepo.save(factura);
 		return 0;
@@ -50,7 +49,7 @@ public class FacturaService {
 			if (f.getVenta() != null) {
 				dto.setVentaId(f.getVenta().getCodigoVenta());
 			}
-			dto.setMetodoPago(AESUtil.encrypt(f.getMetodoPago()));
+			dto.setMetodoPago((f.getMetodoPago()));
 			dtos.add(dto);
 
 		}
@@ -90,7 +89,7 @@ public class FacturaService {
 			factura.setVenta(optVenta.get());
 		}
 
-		factura.setMetodoPago(AESUtil.encrypt(newData.getMetodoPago()));
+		factura.setMetodoPago((newData.getMetodoPago()));
 		facturaRepo.save(factura);
 		return 0;
 	}

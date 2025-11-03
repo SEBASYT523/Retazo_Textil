@@ -3,6 +3,8 @@ package co.edu.unbosque.retazoTextil.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import co.edu.unbosque.retazoTextil.model.GuardarId;
+
 public class ProductoDTO {
 
 	private Integer codProducto;
@@ -15,11 +17,9 @@ public class ProductoDTO {
 
 	private BigDecimal precio;
 
-	private Integer clienteId;
-
 	private Integer proveedorId;
 
-	private List<Integer> guardadosIds;
+	private List<GuardarId> guardadosIds;
 
 	public ProductoDTO() {
 	}
@@ -32,13 +32,13 @@ public class ProductoDTO {
 		this.proveedorId = proveedorId;
 	}
 
-	public ProductoDTO(String nombre, String tipoProducto, String color, BigDecimal precio, Integer clienteId,
-			Integer proveedorId, List<Integer> guardadosIds) {
+	public ProductoDTO(String nombre, String tipoProducto, String color, BigDecimal precio,
+			Integer proveedorId, List<GuardarId> guardadosIds) {
 		this.nombre = nombre;
 		this.tipoProducto = tipoProducto;
 		this.color = color;
 		this.precio = precio;
-		this.clienteId = clienteId;
+		
 		this.proveedorId = proveedorId;
 		this.guardadosIds = guardadosIds;
 	}
@@ -83,14 +83,6 @@ public class ProductoDTO {
 		this.precio = precio;
 	}
 
-	public Integer getClienteId() {
-		return clienteId;
-	}
-
-	public void setClienteId(Integer clienteId) {
-		this.clienteId = clienteId;
-	}
-
 	public Integer getProveedorId() {
 		return proveedorId;
 	}
@@ -99,11 +91,11 @@ public class ProductoDTO {
 		this.proveedorId = proveedorId;
 	}
 
-	public List<Integer> getGuardadosIds() {
+	public List<GuardarId> getGuardadosIds() {
 		return guardadosIds;
 	}
 
-	public void setGuardadosIds(List<Integer> guardadosIds) {
+	public void setGuardadosIds(List<GuardarId> guardadosIds) {
 		this.guardadosIds = guardadosIds;
 	}
 
@@ -111,11 +103,11 @@ public class ProductoDTO {
 		this.proveedorId = proveedorId;
 	}
 
-	public List<Integer> getGuardados() {
+	public List<GuardarId> getGuardados() {
 		return guardadosIds;
 	}
 
-	public void setGuardados(List<Integer> guardadosIds) {
+	public void setGuardados(List<GuardarId> guardadosIds) {
 		this.guardadosIds = guardadosIds;
 	}
 

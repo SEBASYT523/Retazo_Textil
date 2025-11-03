@@ -10,8 +10,6 @@ public class VendedorDTO {
 
 	private Integer localId;
 
-	private Integer empleadoId;
-
 	public VendedorDTO() {
 
 	}
@@ -20,7 +18,7 @@ public class VendedorDTO {
 		this.numeroProductosVendidos = numeroProductosVendidos;
 		this.totalVentas = totalVentas;
 		this.localId = local;
-		this.empleadoId = empleado;
+	
 	}
 
 	public Integer getIdEmpleado() {
@@ -53,14 +51,6 @@ public class VendedorDTO {
 
 	public void setLocalId(Integer localId) {
 		this.localId = localId;
-	}
-
-	public Integer getEmpleadoId() {
-		return empleadoId;
-	}
-
-	public void setEmpleadoId(Integer empleadoId) {
-		this.empleadoId = empleadoId;
 	}
 
 }

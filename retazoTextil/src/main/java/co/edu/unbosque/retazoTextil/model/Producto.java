@@ -1,6 +1,5 @@
 package co.edu.unbosque.retazoTextil.model;
 
-
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,43 +8,43 @@ import java.util.List;
 @Table(name = "producto")
 public class Producto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cod_producto")
-    private Integer codProducto;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cod_producto")
+	private Integer codProducto;
 
-    @Column(name = "nombre", nullable = false, length = 50)
-    private String nombre;
+	@Column(name = "nombre", nullable = false, length = 50)
+	private String nombre;
 
-    @Column(name = "tipo_producto", nullable = false, length = 30)
-    private String tipoProducto;
+	@Column(name = "tipo_producto", nullable = false, length = 30)
+	private String tipoProducto;
 
-    @Column(name = "color", nullable = false, length = 30)
-    private String color;
+	@Column(name = "color", nullable = false, length = 30)
+	private String color;
 
-    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precio;
+	@Column(name = "precio", nullable = false, precision = 10, scale = 2)
+	private BigDecimal precio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id_cliente")
-    private Cliente cliente;
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Pedido> pedidos;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "proveedor_id_proveedor", nullable = false)
-    private Proveedor proveedor;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "proveedor_id_proveedor", nullable = false)
+	private Proveedor proveedor;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Guardar> guardados;
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Guardar> guardados;
 
-    public Producto() {}
+	public Producto() {
+	}
 
-    public Producto(String nombre, String tipoProducto, String color, BigDecimal precio, Proveedor proveedor) {
-        this.nombre = nombre;
-        this.tipoProducto = tipoProducto;
-        this.color = color;
-        this.precio = precio;
-        this.proveedor = proveedor;
-    }
+	public Producto(String nombre, String tipoProducto, String color, BigDecimal precio, Proveedor proveedor) {
+		this.nombre = nombre;
+		this.tipoProducto = tipoProducto;
+		this.color = color;
+		this.precio = precio;
+		this.proveedor = proveedor;
+	}
 
 	public Integer getCodProducto() {
 		return codProducto;
@@ -87,12 +86,12 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public Proveedor getProveedor() {
@@ -110,6 +109,5 @@ public class Producto {
 	public void setGuardados(List<Guardar> guardados) {
 		this.guardados = guardados;
 	}
-    
-    
+
 }

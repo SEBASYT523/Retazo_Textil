@@ -34,7 +34,7 @@ public class Proveedor {
 	private String pais;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "administrador_numero_cubiculo", nullable = false)
+	@JoinColumn(name = "administrador_id_empleado", nullable = false)
 	private Administrador administrador;
 
 	@OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

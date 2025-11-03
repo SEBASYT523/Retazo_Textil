@@ -3,7 +3,6 @@ package co.edu.unbosque.retazoTextil.service;
 import co.edu.unbosque.retazoTextil.dto.LocalDTO;
 import co.edu.unbosque.retazoTextil.model.Local;
 import co.edu.unbosque.retazoTextil.repository.LocalRepository;
-import co.edu.unbosque.retazoTextil.util.AESUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,8 @@ public class LocalService {
 
 		Local local = new Local();
 
-		local.setDireccion(AESUtil.encrypt(data.getDireccion()));
-		local.setTelefono(Integer.valueOf(AESUtil.encrypt(data.getTelefono().toString())));
+		local.setDireccion((data.getDireccion()));
+		local.setTelefono(Long.valueOf((data.getTelefono().toString())));
 
 		localRepo.save(local);
 		return 0;
@@ -38,8 +37,7 @@ public class LocalService {
 		for (Local l : entities) {
 			LocalDTO dto = modelMapper.map(l, LocalDTO.class);
 
-			dto.setDireccion(AESUtil.decrypt(l.getDireccion()));
-			dto.setTelefono(Integer.valueOf(AESUtil.decrypt(l.getTelefono().toString())));
+			
 
 			dtos.add(dto);
 		}
@@ -56,8 +54,7 @@ public class LocalService {
 		Local l = opt.get();
 		LocalDTO dto = modelMapper.map(l, LocalDTO.class);
 
-		dto.setDireccion(AESUtil.decrypt(l.getDireccion()));
-		dto.setTelefono(Integer.valueOf(AESUtil.decrypt(l.getTelefono().toString())));
+	
 
 		return dto;
 	}
@@ -71,10 +68,10 @@ public class LocalService {
 		Local local = opt.get();
 
 		if (newData.getDireccion() != null)
-			local.setDireccion(AESUtil.encrypt(newData.getDireccion()));
+			local.setDireccion((newData.getDireccion()));
 
 		if (newData.getTelefono() != null)
-			local.setTelefono(Integer.valueOf(AESUtil.encrypt(newData.getTelefono().toString())));
+			local.setTelefono(Long.valueOf((newData.getTelefono().toString())));
 
 		localRepo.save(local);
 		return 0;

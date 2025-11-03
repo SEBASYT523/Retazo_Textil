@@ -15,12 +15,12 @@ public class Local {
 	private String direccion;
 
 	@Column(name = "telefono", nullable = false, length = 20)
-	private Integer telefono;
+	private Long telefono;
 
 	public Local() {
 	}
 
-	public Local(String direccion, Integer telefono) {
+	public Local(String direccion, Long telefono) {
 		super();
 		this.direccion = direccion;
 		this.telefono = telefono;
@@ -42,11 +42,11 @@ public class Local {
 		this.direccion = direccion;
 	}
 
-	public Integer getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 

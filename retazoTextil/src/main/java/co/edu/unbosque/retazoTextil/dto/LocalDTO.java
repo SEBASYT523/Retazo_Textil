@@ -6,12 +6,12 @@ public class LocalDTO {
 
 	private String direccion;
 
-	private Integer telefono;
+	private Long telefono;
 
 	public LocalDTO() {
 	}
 
-	public LocalDTO(String direccion, Integer telefono) {
+	public LocalDTO(String direccion, Long telefono) {
 		this.direccion = direccion;
 		this.telefono = telefono;
 	}
@@ -32,11 +32,11 @@ public class LocalDTO {
 		this.direccion = direccion;
 	}
 
-	public Integer getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 
