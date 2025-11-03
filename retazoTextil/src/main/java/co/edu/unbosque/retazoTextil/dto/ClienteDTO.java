@@ -3,6 +3,8 @@ package co.edu.unbosque.retazoTextil.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import co.edu.unbosque.retazoTextil.model.PedidoId;
+
 public class ClienteDTO {
 
 	private Integer idCliente;
@@ -25,7 +27,7 @@ public class ClienteDTO {
 
 	private String anosComprando;
 
-	private List<Integer> productosId;
+	private List<PedidoId> pedidosId;
 
 	public ClienteDTO() {
 	}
@@ -45,7 +47,7 @@ public class ClienteDTO {
 
 	public ClienteDTO(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
 			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento, String anosComprando,
-			List<Integer> productosId) {
+			List<PedidoId> pedidosId) {
 		super();
 		this.primerNombre = primerNombre;
 		this.segundoNombre = segundoNombre;
@@ -56,15 +58,15 @@ public class ClienteDTO {
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
 		this.anosComprando = anosComprando;
-		this.productosId = productosId;
+		this.pedidosId = pedidosId;
 	}
 
-	public List<Integer> getProductosId() {
-		return productosId;
+	public List<PedidoId> getpedidosId() {
+		return pedidosId;
 	}
 
-	public void setProductosId(List<Integer> productosId) {
-		this.productosId = productosId;
+	public void setpedidosId(List<PedidoId> pedidosId) {
+		this.pedidosId = pedidosId;
 	}
 
 	public String getContrasenia() {
@@ -147,12 +149,12 @@ public class ClienteDTO {
 		this.anosComprando = anosComprando;
 	}
 
-	public List<Integer> getIntegers() {
-		return productosId;
+	public List<PedidoId> getIntegers() {
+		return pedidosId;
 	}
 
-	public void setIntegers(List<Integer> productosId) {
-		this.productosId = productosId;
+	public void setIntegers(List<PedidoId> pedidosId) {
+		this.pedidosId = pedidosId;
 	}
 
 }

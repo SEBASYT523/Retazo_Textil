@@ -1,151 +1,133 @@
 package co.edu.unbosque.retazoTextil.service;
 
 import co.edu.unbosque.retazoTextil.dto.ProductoDTO;
-import co.edu.unbosque.retazoTextil.model.*;
-import co.edu.unbosque.retazoTextil.repository.*;
-import co.edu.unbosque.retazoTextil.util.AESUtil;
-
+import co.edu.unbosque.retazoTextil.model.Producto;
+import co.edu.unbosque.retazoTextil.model.Guardar;
+import co.edu.unbosque.retazoTextil.model.Proveedor;
+import co.edu.unbosque.retazoTextil.repository.GuardarRepository;
+import co.edu.unbosque.retazoTextil.repository.ProductoRepository;
+import co.edu.unbosque.retazoTextil.repository.ProveedorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductoService {
 
-	@Autowired
-	private ProductoRepository productoRepo;
+    @Autowired
+    private ProductoRepository productoRepo;
 
-	@Autowired
-	private ClienteRepository clienteRepo;
+    @Autowired
+    private ProveedorRepository proveedorRepo;
 
-	@Autowired
-	private ProveedorRepository proveedorRepo;
+    @Autowired
+    private GuardarRepository guardarRepo;
 
-	@Autowired
-	private ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-	public int create(ProductoDTO data) {
-		Optional<Proveedor> optProveedor = proveedorRepo.findById(data.getProveedorId());
-		if (optProveedor.isEmpty()) {
-			return 1;
-		}
+    public int create(ProductoDTO data) {
+        Optional<Proveedor> optProveedor = proveedorRepo.findById(data.getProveedorId());
+        if (optProveedor.isEmpty()) {
+            return 1; 
+        }
 
-		Producto producto = new Producto();
-		producto.setNombre(data.getNombre());
-		producto.setTipoProducto(data.getTipoProducto());
-		producto.setColor(data.getColor());
+        Producto producto = new Producto();
+        producto.setNombre(data.getNombre());
+        producto.setTipoProducto(data.getTipoProducto());
+        producto.setColor(data.getColor());
+        producto.setPrecio(data.getPrecio());
+        producto.setProveedor(optProveedor.get());
 
-		producto.setPrecio(BigDecimal.valueOf(Double.valueOf(AESUtil.encrypt(data.getPrecio().toString()))));
+        if (data.getGuardadosIds() != null && !data.getGuardadosIds().isEmpty()) {
+            List<Guardar> guardados = data.getGuardadosIds().stream()
+                    .map(gid -> guardarRepo.findById(gid).orElse(null))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+            producto.setGuardados(guardados);
+        }
 
-		if (data.getClienteId() != null) {
-			Optional<Cliente> optCliente = clienteRepo.findById(data.getClienteId());
-			optCliente.ifPresent(producto::setCliente);
-		}
+        productoRepo.save(producto);
+        return 0;
+    }
 
-		producto.setProveedor(optProveedor.get());
+    public List<ProductoDTO> getAll() {
+        List<Producto> productos = productoRepo.findAll();
+        return productos.stream().map(p -> {
+            ProductoDTO dto = modelMapper.map(p, ProductoDTO.class);
+            dto.setProveedorId(p.getProveedor() != null ? p.getProveedor().getIdProveedor() : null);
+            if (p.getGuardados() != null) {
+                dto.setGuardadosIds(p.getGuardados().stream()
+                        .map(Guardar::getId)
+                        .collect(Collectors.toList()));
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
 
-		productoRepo.save(producto);
-		return 0;
-	}
+    public ProductoDTO getById(Integer id) {
+        return productoRepo.findById(id)
+                .map(p -> {
+                    ProductoDTO dto = modelMapper.map(p, ProductoDTO.class);
+                    dto.setProveedorId(p.getProveedor() != null ? p.getProveedor().getIdProveedor() : null);
+                    if (p.getGuardados() != null) {
+                        dto.setGuardadosIds(p.getGuardados().stream()
+                                .map(Guardar::getId)
+                                .collect(Collectors.toList()));
+                    }
+                    return dto;
+                })
+                .orElse(null);
+    }
 
-	public List<ProductoDTO> getAll() {
-		List<Producto> productos = productoRepo.findAll();
-		List<ProductoDTO> dtos = new ArrayList<>();
+    public int updateById(Integer id, ProductoDTO newData) {
+        Optional<Producto> optProducto = productoRepo.findById(id);
+        if (optProducto.isEmpty()) {
+            return 2; 
+        }
 
-		for (Producto p : productos) {
-			ProductoDTO dto = modelMapper.map(p, ProductoDTO.class);
+        Producto producto = optProducto.get();
 
-			try {
-				dto.setPrecio(BigDecimal.valueOf(Double.valueOf(AESUtil.decrypt(p.getPrecio().toString()))));
-			} catch (Exception e) {
-				dto.setPrecio(BigDecimal.ZERO);
-			}
+        if (newData.getNombre() != null) producto.setNombre(newData.getNombre());
+        if (newData.getTipoProducto() != null) producto.setTipoProducto(newData.getTipoProducto());
+        if (newData.getColor() != null) producto.setColor(newData.getColor());
+        if (newData.getPrecio() != null) producto.setPrecio(newData.getPrecio());
 
-			dto.setClienteId(p.getCliente() != null ? p.getCliente().getIdCliente() : null);
-			dto.setProveedorId(p.getProveedor() != null ? p.getProveedor().getIdProveedor() : null);
+        if (newData.getProveedorId() != null) {
+            Optional<Proveedor> optProveedor = proveedorRepo.findById(newData.getProveedorId());
+            if (optProveedor.isEmpty()) {
+                return 1; 
+            }
+            producto.setProveedor(optProveedor.get());
+        }
 
-			dtos.add(dto);
-		}
+        if (newData.getGuardadosIds() != null) {
+            List<Guardar> guardados = newData.getGuardadosIds().stream()
+                    .map(gid -> guardarRepo.findById(gid).orElse(null))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+            producto.setGuardados(guardados);
+        }
 
-		return dtos;
-	}
+        productoRepo.save(producto);
+        return 0;
+    }
 
-	public ProductoDTO getById(Integer id) {
-		Optional<Producto> opt = productoRepo.findById(id);
-		if (opt.isEmpty()) {
-			return null;
-		}
+    public int deleteById(Integer id) {
+        return productoRepo.findById(id).map(p -> {
+            productoRepo.delete(p);
+            return 0;
+        }).orElse(1);
+    }
 
-		Producto p = opt.get();
-		ProductoDTO dto = modelMapper.map(p, ProductoDTO.class);
+    public boolean exist(Integer id) {
+        return productoRepo.existsById(id);
+    }
 
-		try {
-			dto.setPrecio(BigDecimal.valueOf(Double.valueOf(AESUtil.decrypt(p.getPrecio().toString()))));
-		} catch (Exception e) {
-			dto.setPrecio(BigDecimal.ZERO);
-		}
-
-		dto.setClienteId(p.getCliente() != null ? p.getCliente().getIdCliente() : null);
-		dto.setProveedorId(p.getProveedor() != null ? p.getProveedor().getIdProveedor() : null);
-
-		return dto;
-	}
-
-	public int updateById(Integer id, ProductoDTO newData) {
-		Optional<Producto> optProducto = productoRepo.findById(id);
-		if (optProducto.isEmpty()) {
-			return 2;
-		}
-
-		Producto producto = optProducto.get();
-
-		if (newData.getNombre() != null)
-			producto.setNombre(newData.getNombre());
-
-		if (newData.getTipoProducto() != null)
-			producto.setTipoProducto(newData.getTipoProducto());
-
-		if (newData.getColor() != null)
-			producto.setColor(newData.getColor());
-
-		if (newData.getPrecio() != null)
-			producto.setPrecio(BigDecimal.valueOf(Double.valueOf(AESUtil.encrypt(newData.getPrecio().toString()))));
-
-		if (newData.getClienteId() != null) {
-			Optional<Cliente> optCliente = clienteRepo.findById(newData.getClienteId());
-			optCliente.ifPresent(producto::setCliente);
-		}
-
-		if (newData.getProveedorId() != null) {
-			Optional<Proveedor> optProveedor = proveedorRepo.findById(newData.getProveedorId());
-			if (optProveedor.isEmpty()) {
-				return 1;
-			}
-			producto.setProveedor(optProveedor.get());
-		}
-
-		productoRepo.save(producto);
-		return 0;
-	}
-
-	public int deleteById(Integer id) {
-		Optional<Producto> opt = productoRepo.findById(id);
-		if (opt.isEmpty()) {
-			return 1;
-		}
-
-		productoRepo.delete(opt.get());
-		return 0;
-	}
-
-	public boolean exist(Integer id) {
-		return productoRepo.existsById(id);
-	}
-
-	public long count() {
-		return productoRepo.count();
-	}
+    public long count() {
+        return productoRepo.count();
+    }
 }

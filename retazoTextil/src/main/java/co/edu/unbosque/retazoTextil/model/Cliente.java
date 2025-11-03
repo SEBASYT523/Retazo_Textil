@@ -50,7 +50,7 @@ public class Cliente {
 	private String anosComprando;
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Producto> productos;
+	private List<Pedido> pedidos;
 
 	public Cliente() {
 	}
@@ -66,6 +66,22 @@ public class Cliente {
 		this.direccion = direccion;
 		this.fechaNacimiento = fechaNacimiento;
 		this.anosComprando = anosComprando;
+	}
+
+	public Cliente(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			String contrasenia, String telefono, String direccion, LocalDate fechaNacimiento, String anosComprando,
+			List<Pedido> pedidos) {
+		super();
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
+		this.contrasenia = contrasenia;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.fechaNacimiento = fechaNacimiento;
+		this.anosComprando = anosComprando;
+		this.pedidos = pedidos;
 	}
 
 	public String getContrasenia() {
@@ -148,12 +164,12 @@ public class Cliente {
 		this.anosComprando = anosComprando;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 }

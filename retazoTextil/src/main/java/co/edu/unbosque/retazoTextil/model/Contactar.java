@@ -10,10 +10,10 @@ public class Contactar {
 	@EmbeddedId
 	private ContactarId id;
 
-	@Column(name = "fecha_solicitud")
+	@Column(name = "fecha_solicitud", nullable = false)
 	private LocalDate fechaSolicitud;
 
-	@Column(name = "fecha_entrega", nullable = false)
+	@Column(name = "fecha_entrega", nullable = true)
 	private LocalDate fechaEntrega;
 
 	@ManyToOne(fetch = FetchType.LAZY)

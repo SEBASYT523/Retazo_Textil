@@ -5,7 +5,6 @@ import co.edu.unbosque.retazoTextil.model.Bodega;
 import co.edu.unbosque.retazoTextil.model.Local;
 import co.edu.unbosque.retazoTextil.repository.BodegaRepository;
 import co.edu.unbosque.retazoTextil.repository.LocalRepository;
-import co.edu.unbosque.retazoTextil.util.AESUtil;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class BodegaService {
 
 		Bodega bodega = new Bodega();
 		bodega.setFechaCompra(data.getFechaCompra());
-		bodega.setCapacidad(Integer.parseInt(AESUtil.encrypt(data.getCapacidad().toString())));
+		bodega.setCapacidad(Integer.parseInt((data.getCapacidad().toString())));
 		bodega.setLocal(optLocal.get());
 
 		bodegaRepo.save(bodega);
@@ -46,7 +45,6 @@ public class BodegaService {
 
 		for (Bodega b : entities) {
 			BodegaDTO dto = modelMapper.map(b, BodegaDTO.class);
-			dto.setCapacidad(Integer.parseInt(AESUtil.decrypt(dto.getCapacidad().toString())));
 			dto.setLocalId(b.getLocal().getNumeroLocal());
 			dtos.add(dto);
 		}

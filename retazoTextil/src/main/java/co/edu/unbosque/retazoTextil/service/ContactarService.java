@@ -41,6 +41,8 @@ public class ContactarService {
 		contactar.setId(new ContactarId(dto.getProveedorId(), dto.getAdministradorId()));
 		contactar.setProveedor(proveedor);
 		contactar.setAdministrador(administrador);
+		contactar.setFechaEntrega(dto.getFechaEntrega());
+		contactar.setFechaSolicitud(dto.getFechaSolicitud());
 
 		contactarRepository.save(contactar);
 
@@ -108,7 +110,8 @@ public class ContactarService {
 		}
 
 		contactar.setId(new ContactarId(contactar.getProveedor().getIdProveedor(), contactar.getAdministrador().getIdEmpleado()));
-
+		contactar.setFechaEntrega(dto.getFechaEntrega());
+		contactar.setFechaSolicitud(dto.getFechaSolicitud());
 		contactarRepository.save(contactar);
 		return 0;
 	}

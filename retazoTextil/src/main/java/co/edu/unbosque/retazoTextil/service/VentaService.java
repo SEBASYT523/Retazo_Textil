@@ -1,17 +1,18 @@
 package co.edu.unbosque.retazoTextil.service;
 
 import co.edu.unbosque.retazoTextil.dto.VentaDTO;
-import co.edu.unbosque.retazoTextil.model.*;
-import co.edu.unbosque.retazoTextil.repository.*;
-import co.edu.unbosque.retazoTextil.util.AESUtil;
-
+import co.edu.unbosque.retazoTextil.model.Empleado;
+import co.edu.unbosque.retazoTextil.model.Factura;
+import co.edu.unbosque.retazoTextil.model.Venta;
+import co.edu.unbosque.retazoTextil.repository.EmpleadoRepository;
+import co.edu.unbosque.retazoTextil.repository.FacturaRepository;
+import co.edu.unbosque.retazoTextil.repository.VentaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class VentaService {
@@ -29,25 +30,25 @@ public class VentaService {
 	private ModelMapper modelMapper;
 
 	public int create(VentaDTO data) {
-        Optional<Empleado> optEmpleado = empleadoRepo.findById(data.getEmpleadoId());
-        if (optEmpleado.isEmpty()) {
-            return 1; 
-        }
+		Optional<Empleado> optEmpleado = empleadoRepo.findById(data.getEmpleadoId());
+		if (optEmpleado.isEmpty()) {
+			return 1;
+		}
 
-        Optional<Factura> optFactura = facturaRepo.findById(data.getFacturaId());
-        if (optFactura.isEmpty()) {
-            return 2;
-        }
+		Optional<Factura> optFactura = facturaRepo.findById(data.getFacturaId());
+		if (optFactura.isEmpty()) {
+			return 2;
+		}
 
-        Venta venta = new Venta();
-        venta.setValorTotal(BigDecimal.valueOf(Double.valueOf(AESUtil.encrypt(data.getValorTotal().toString()))));
-        venta.setFechaVenta(data.getFechaVenta() != null ? data.getFechaVenta() : LocalDate.now());
-        venta.setEmpleado(optEmpleado.get());
-        venta.setFactura(optFactura.get());
+		Venta venta = new Venta();
+		venta.setFechaVenta(data.getFechaVenta() != null ? data.getFechaVenta() : LocalDate.now());
+		venta.setValorTotal(data.getValorTotal());
+		venta.setEmpleado(optEmpleado.get());
+		venta.setFactura(optFactura.get());
 
-        ventaRepo.save(venta);
-        return 0; 
-    }
+		ventaRepo.save(venta);
+		return 0;
+	}
 
 	public List<VentaDTO> getAll() {
 		List<Venta> entities = ventaRepo.findAll();
@@ -55,7 +56,6 @@ public class VentaService {
 
 		for (Venta v : entities) {
 			VentaDTO dto = modelMapper.map(v, VentaDTO.class);
-	        dto.setValorTotal(BigDecimal.valueOf(Double.valueOf(AESUtil.decrypt(dto.getValorTotal().toString()))));
 			dto.setEmpleadoId(v.getEmpleado().getIdEmpleado());
 			dto.setFacturaId(v.getFactura().getNumeroFactura());
 			dtos.add(dto);
@@ -85,11 +85,13 @@ public class VentaService {
 
 		Venta venta = optVenta.get();
 
-		if (newData.getValorTotal() != null)
+		if (newData.getValorTotal() != null) {
 			venta.setValorTotal(newData.getValorTotal());
+		}
 
-		if (newData.getFechaVenta() != null)
+		if (newData.getFechaVenta() != null) {
 			venta.setFechaVenta(newData.getFechaVenta());
+		}
 
 		if (newData.getEmpleadoId() != null) {
 			Optional<Empleado> optEmpleado = empleadoRepo.findById(newData.getEmpleadoId());
@@ -106,8 +108,6 @@ public class VentaService {
 			}
 			venta.setFactura(optFactura.get());
 		}
-		
-		venta.setValorTotal(BigDecimal.valueOf(Double.valueOf(AESUtil.encrypt(newData.getValorTotal().toString()))));
 
 		ventaRepo.save(venta);
 		return 0;
@@ -123,7 +123,7 @@ public class VentaService {
 		return 0;
 	}
 
-	public boolean exist(Integer id) {
+	public boolean exists(Integer id) {
 		return ventaRepo.existsById(id);
 	}
 

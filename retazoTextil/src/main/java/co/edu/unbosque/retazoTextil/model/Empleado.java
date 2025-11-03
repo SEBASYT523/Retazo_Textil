@@ -9,7 +9,6 @@ import java.util.List;
 public class Empleado {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_empleado")
 	private Integer idEmpleado;
 
@@ -59,6 +58,30 @@ public class Empleado {
 	private Vendedor vendedor;
 
 	public Empleado() {
+	}
+
+	public Empleado(Integer idEmpleado, String contrasenia, String primerNombreEmpleado, String segundoNombreEmpleado,
+			String primerApellidoEmpleado, String segundoApellidoEmpleado, String telefonoEmpleado,
+			String direccionEmpleado, String paisNacimiento, String ciudadNacimiento, LocalDate fechaNacimiento,
+			LocalDate fechaIngreso, Double salario, List<Venta> ventas, Administrador administrador,
+			Vendedor vendedor) {
+		super();
+		this.idEmpleado = idEmpleado;
+		this.contrasenia = contrasenia;
+		this.primerNombreEmpleado = primerNombreEmpleado;
+		this.segundoNombreEmpleado = segundoNombreEmpleado;
+		this.primerApellidoEmpleado = primerApellidoEmpleado;
+		this.segundoApellidoEmpleado = segundoApellidoEmpleado;
+		this.telefonoEmpleado = telefonoEmpleado;
+		this.direccionEmpleado = direccionEmpleado;
+		this.paisNacimiento = paisNacimiento;
+		this.ciudadNacimiento = ciudadNacimiento;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaIngreso = fechaIngreso;
+		this.salario = salario;
+		this.ventas = ventas;
+		this.administrador = administrador;
+		this.vendedor = vendedor;
 	}
 
 	public Empleado(String primerNombreEmpleado, String segundoNombreEmpleado, String primerApellidoEmpleado,
