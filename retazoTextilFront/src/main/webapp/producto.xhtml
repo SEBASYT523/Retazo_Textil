@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Gestión de Productos - Retazo Textil</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-header h2 {
+            color: white;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .user-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .user-avatar {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</h:head>
+
+<h:body>
+<div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🧵 Retazo Textil</h2>
+            <p>Panel de Administrador</p>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">👑</div>
+            <h3>Admin Principal</h3>
+            <p>Administrador</p>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="admin.xhtml" class="nav-link">🏠 Dashboard</a></li>
+            <li class="nav-item"><a href="administrador-empleados.xhtml" class="nav-link">👥 Empleados</a></li>
+            <li class="nav-item"><a href="local.xhtml" class="nav-link">🏪 Locales</a></li>
+            <li class="nav-item"><a href="producto.xhtml" class="nav-link" 
+                style="background: rgba(255, 255, 255, 0.2);">📦 Productos</a></li>
+            <li class="nav-item"><a href="administrador-proveedor.xhtml" class="nav-link">🚚 Proveedores</a></li>
+            <li class="nav-item"><a href="login.xhtml" class="nav-link">🚪 Cerrar Sesión</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        <h1 class="page-title">Gestión de Productos</h1>
+
+        <div class="card">
+            <h:form id="productoForm">
+
+                <p:commandButton value="➕ Nuevo Producto" icon="pi pi-plus"
+                                 onclick="PF('dlgNuevoProducto').show()" process="@this"
+                                 styleClass="ui-button-success" style="margin-bottom: 1rem;" />
+
+                <p:dataTable value="#{ProductoBean.productos}" var="prod"
+                             paginator="true" rows="5" responsiveLayout="scroll"
+                             emptyMessage="No hay productos registrados">
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{prod.codProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{prod.nombre}" />
+                    </p:column>
+
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{prod.tipoProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Color">
+                        <h:outputText value="#{prod.color}" />
+                    </p:column>
+
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{prod.precio}" />
+                    </p:column>
+
+                    <p:column headerText="Acciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash"
+                                         action="#{ProductoBean.eliminarProducto(prod.codProducto)}"
+                                         update=":productoForm" styleClass="ui-button-danger" />
+                    </p:column>
+                </p:dataTable>
+
+                <!-- Diálogo Nuevo Producto -->
+                <p:dialog header="Nuevo Producto" widgetVar="dlgNuevoProducto"
+                          modal="true" closable="true" responsive="true">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="nombre" value="Nombre:" />
+                        <p:inputText id="nombre"
+                                     value="#{ProductoBean.nuevoProducto.nombre}" required="true" />
+
+                        <h:outputLabel for="tipoProducto" value="Tipo:" />
+                        <p:inputText id="tipoProducto"
+                                     value="#{ProductoBean.nuevoProducto.tipoProducto}" required="true" />
+
+                        <h:outputLabel for="color" value="Color:" />
+                        <p:inputText id="color"
+                                     value="#{ProductoBean.nuevoProducto.color}" required="true" />
+
+                        <h:outputLabel for="precio" value="Precio:" />
+                        <p:inputText id="precio"
+                                     value="#{ProductoBean.nuevoProducto.precio}" required="true" />
+
+                        <h:outputLabel for="proveedorId" value="ID Proveedor:" />
+                        <p:inputText id="proveedorId"
+                                     value="#{ProductoBean.nuevoProducto.proveedorId}" required="true" />
+                    </h:panelGrid>
+
+                    <p:separator />
+
+                    <p:commandButton value="Guardar"
+                                     actionListener="#{ProductoBean.crearProducto}"
+                                     update=":productoForm"
+                                     oncomplete="PF('dlgNuevoProducto').hide()"
+                                     styleClass="ui-button-success" />
+                </p:dialog>
+
+            </h:form>
+        </div>
+    </div>
+</div>
+</h:body>
+</html>

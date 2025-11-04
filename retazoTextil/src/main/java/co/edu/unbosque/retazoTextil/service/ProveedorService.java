@@ -29,31 +29,11 @@ public class ProveedorService {
     private ModelMapper modelMapper;
 
     public int create(ProveedorDTO data) {
-        Optional<Administrador> optAdmin = adminRepo.findById(data.getInteger());
-        if (optAdmin.isEmpty()) {
-            return 1; 
-        }
 
         Proveedor proveedor = new Proveedor();
-        proveedor.setAdministrador(optAdmin.get());
-
-      
-        List<Producto> productos = new ArrayList<>();
-        if (data.getIntegers() != null) {
-            for (Integer idProd : data.getIntegers()) {
-                productoRepo.findById(idProd).ifPresent(productos::add);
-            }
-        }
-        proveedor.setProductos(productos);
-
-        List<Contactar> contactos = new ArrayList<>();
-        if (data.getContactos() != null) {
-            for (ContactarId idCon : data.getContactos()) {
-                contactarRepo.findById(idCon).ifPresent(contactos::add);
-            }
-        }
-        proveedor.setContactos(contactos);
-
+       
+        Administrador admin = adminRepo.getById(1);
+        proveedor.setAdministrador(admin);
         proveedor.setPrimerNombreProveedor(data.getPrimerNombreProveedor());
         proveedor.setSegundoNombreProveedor(data.getSegundoNombreProveedor());
         proveedor.setPrimerApellidoProveedor(data.getPrimerApellidoProveedor());

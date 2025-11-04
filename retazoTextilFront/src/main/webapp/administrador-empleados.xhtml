@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Gestión de Empleados - Retazo Textil</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --lila: #8e44ad;
+            --lila-dark: #7d3c98;
+            --accent: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 {
+            margin: 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--lila);
+        }
+
+        .nav-link.active {
+            background: var(--lila-dark);
+        }
+
+        /* --- Main --- */
+        .main-content {
+            padding: 2rem;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>🧵 Retazo Textil</h2>
+                <p>Gestión de Personal</p>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><p:button outcome="admin" styleClass="nav-link" value="🏠 Dashboard" /></li>
+                <li class="nav-item"><p:button outcome="administrador-empleados" styleClass="nav-link active" value="👥 Empleados" /></li>
+                <li class="nav-item"><p:button outcome="local" styleClass="nav-link" value="🏪 Locales" /></li>
+                <li class="nav-item"><p:button outcome="producto" styleClass="nav-link" value="📦 Productos" /></li>
+                <li class="nav-item"><p:button outcome="administrador-proveedor" styleClass="nav-link" value="🚚 Proveedores" /></li>
+                <li class="nav-item">
+                    <p:commandButton value="🚪 Cerrar Sesión" action="#{empleadoBean.cerrarSesion}" ajax="false" styleClass="nav-link" />
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <div class="header">
+                <h1 class="page-title">👥 Gestión de Empleados</h1>
+                <p>Administra los empleados del sistema: puedes agregar, consultar y eliminar registros.</p>
+            </div>
+
+            <div class="card">
+                <h:form id="empleadoForm">
+                    <p:commandButton value="➕ Nuevo Empleado" icon="pi pi-plus"
+                                     onclick="PF('dlgNuevoEmpleado').show()" process="@this"
+                                     styleClass="ui-button-success" style="margin-bottom: 1rem;" />
+
+                    <p:dataTable value="#{empleadoBean.empleados}" var="emp"
+                                 paginator="true" rows="6" responsiveLayout="scroll"
+                                 emptyMessage="No hay empleados registrados.">
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{emp.idEmpleado}" />
+                        </p:column>
+
+                        <p:column headerText="Nombre Completo">
+                            <h:outputText value="#{emp.primerNombreEmpleado} #{emp.segundoNombreEmpleado} #{emp.primerApellidoEmpleado} #{emp.segundoApellidoEmpleado}" />
+                        </p:column>
+
+                        <p:column headerText="Teléfono">
+                            <h:outputText value="#{emp.telefonoEmpleado}" />
+                        </p:column>
+
+                        <p:column headerText="Dirección">
+                            <h:outputText value="#{emp.direccionEmpleado}" />
+                        </p:column>
+
+                        <p:column headerText="Salario">
+                            <h:outputText value="#{emp.salario}" />
+                        </p:column>
+
+                        <p:column headerText="Acciones" style="text-align:center;">
+                            <p:commandButton value="🗑️ Eliminar" icon="pi pi-trash"
+                                             action="#{empleadoBean.eliminarEmpleado(emp.idEmpleado)}"
+                                             update=":empleadoForm"
+                                             styleClass="ui-button-danger" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <!-- Diálogo Nuevo Empleado -->
+                    <p:dialog header="Nuevo Empleado" widgetVar="dlgNuevoEmpleado" modal="true" resizable="false">
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <h:outputLabel value="Primer Nombre:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.primerNombreEmpleado}" required="true" />
+
+                            <h:outputLabel value="Segundo Nombre:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.segundoNombreEmpleado}" />
+
+                            <h:outputLabel value="Primer Apellido:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.primerApellidoEmpleado}" required="true" />
+
+                            <h:outputLabel value="Segundo Apellido:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.segundoApellidoEmpleado}" />
+
+                            <h:outputLabel value="Contraseña:" />
+                            <p:password value="#{empleadoBean.nuevoEmpleado.contrasenia}" feedback="true" required="true" />
+
+                            <h:outputLabel value="Teléfono:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.telefonoEmpleado}" required="true" />
+
+                            <h:outputLabel value="Dirección:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.direccionEmpleado}" required="true" />
+
+                            <h:outputLabel value="País:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.paisNacimiento}" required="true" />
+
+                            <h:outputLabel value="Ciudad:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.ciudadNacimiento}" required="true" />
+
+                            <h:outputLabel value="Fecha Nacimiento:" />
+                            <p:datePicker value="#{empleadoBean.nuevoEmpleado.fechaNacimiento}" showIcon="true" />
+
+                            <h:outputLabel value="Fecha Ingreso:" />
+                            <p:datePicker value="#{empleadoBean.nuevoEmpleado.fechaIngreso}" showIcon="true" />
+
+                            <h:outputLabel value="Salario:" />
+                            <p:inputText value="#{empleadoBean.nuevoEmpleado.salario}" required="true" />
+                        </h:panelGrid>
+
+                        <p:separator />
+
+                        <p:commandButton value="Guardar"
+                                         actionListener="#{empleadoBean.crearEmpleado}"
+                                         update=":empleadoForm"
+                                         oncomplete="PF('dlgNuevoEmpleado').hide()"
+                                         styleClass="ui-button-success" />
+                    </p:dialog>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -144,4 +144,14 @@ public class ProveedorDTO implements Serializable{
 		this.contactosId = contactosId;
 	}
 
+	public Integer getAdministradorId() {
+		return administradorId;
+	}
+
+	public void setAdministradorId(Integer administradorId) {
+		this.administradorId = administradorId;
+	}
+	
+	
+
 }

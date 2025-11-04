@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Gestión de Proveedores - Retazo Textil</title>
+	<style>
+:root {
+	--primary: #2c3e50;
+	--secondary: #e74c3c;
+	--accent: #3498db;
+	--light: #ecf0f1;
+	--success: #27ae60;
+	--warning: #f39c12;
+}
+
+body {
+	margin: 0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: #f8f9fa;
+}
+
+.dashboard {
+	display: grid;
+	grid-template-columns: 250px 1fr;
+	min-height: 100vh;
+}
+
+.sidebar {
+	background: var(--primary);
+	color: white;
+	padding: 2rem 1rem;
+}
+
+.main-content {
+	padding: 2rem;
+}
+
+.sidebar-header {
+	text-align: center;
+	margin-bottom: 2rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	color: white;
+}
+
+.sidebar-header h2 {
+	color: white;
+	margin: 0 0 0.5rem 0;
+}
+
+.user-info {
+	text-align: center;
+	margin-bottom: 2rem;
+	padding: 1rem;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+	color: white;
+}
+
+.user-avatar {
+	font-size: 3rem;
+	margin-bottom: 0.5rem;
+}
+
+.nav-menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.nav-item {
+	margin-bottom: 0.5rem;
+}
+
+.nav-link {
+	display: block;
+	padding: 0.75rem 1rem;
+	color: white;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: background 0.3s ease;
+}
+
+.nav-link:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.card {
+	background: white;
+	padding: 1.5rem;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+	font-size: 1.8rem;
+	color: var(--primary);
+	margin-bottom: 1.5rem;
+}
+</style>
+</h:head>
+<h:body>
+	<div class="dashboard">
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<div class="sidebar-header">
+				<h2>🧵 Retazo Textil</h2>
+				<p>Panel de Administrador</p>
+			</div>
+			<div class="user-info">
+				<div class="user-avatar">👑</div>
+				<h3>Admin Principal</h3>
+				<p>Administrador</p>
+			</div>
+			<ul class="nav-menu">
+				<li class="nav-item"><a href="admin.xhtml" class="nav-link">🏠
+						Dashboard</a></li>
+				<li class="nav-item"><a href="empleados.xhtml" class="nav-link">👥
+						Empleados</a></li>
+				<li class="nav-item"><a href="locales.xhtml" class="nav-link">🏪
+						Locales</a></li>
+				<li class="nav-item"><a href="administrador-proveedor.xhtml"
+					class="nav-link" style="background: rgba(255, 255, 255, 0.2);">🚚
+						Proveedores</a></li>
+				<li class="nav-item"><a href="login.xhtml" class="nav-link">🚪
+						Cerrar Sesión</a></li>
+			</ul>
+		</div>
+		<!-- Contenido Principal -->
+		<div class="main-content">
+			<h1 class="page-title">Gestión de Proveedores</h1>
+			<div class="card">
+				<h:form id="proveedorForm">
+					<p:commandButton value="➕ Nuevo Proveedor" icon="pi pi-plus"
+						onclick="PF('dlgNuevoProveedor').show()" process="@this"
+						styleClass="ui-button-success" style="margin-bottom: 1rem;" />
+					<p:dataTable value="#{ProveedorBean.proveedores}" var="prov"
+						paginator="true" rows="5" responsiveLayout="scroll"
+						emptyMessage="No hay proveedores registrados">
+						<p:column headerText="ID">
+							<h:outputText value="#{prov.idProveedor}" />
+						</p:column>
+						<p:column headerText="Primer Nombre">
+							<h:outputText value="#{prov.primerNombreProveedor}" />
+						</p:column>
+						<p:column headerText="Primer Apellido">
+							<h:outputText value="#{prov.primerApellidoProveedor}" />
+						</p:column>
+						<p:column headerText="Teléfono">
+							<h:outputText value="#{prov.telefono}" />
+						</p:column>
+						<p:column headerText="Ciudad">
+							<h:outputText value="#{prov.ciudad}" />
+						</p:column>
+						<p:column headerText="País">
+							<h:outputText value="#{prov.pais}" />
+						</p:column>
+						<p:column headerText="Acciones">
+							<p:commandButton value="Eliminar" icon="pi pi-trash"
+    action="#{ProveedorBean.eliminarProveedor(prov.idProveedor)}"
+    update=":proveedorForm" styleClass="ui-button-danger" />
+
+						</p:column>
+					</p:dataTable>
+					<p:dialog header="Nuevo Proveedor" widgetVar="dlgNuevoProveedor"
+						modal="true" closable="true" responsive="true">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputLabel for="nombre1" value="Primer Nombre:" />
+							<p:inputText id="nombre1"
+								value="#{ProveedorBean.nuevoProveedor.primerNombreProveedor}"
+								required="true" />
+							<h:outputLabel for="nombre2" value="Segundo Nombre:" />
+							<p:inputText id="nombre2"
+								value="#{ProveedorBean.nuevoProveedor.segundoNombreProveedor}" />
+							<h:outputLabel for="apellido1" value="Primer Apellido:" />
+							<p:inputText id="apellido1"
+								value="#{ProveedorBean.nuevoProveedor.primerApellidoProveedor}"
+								required="true" />
+							<h:outputLabel for="apellido2" value="Segundo Apellido:" />
+							<p:inputText id="apellido2"
+								value="#{ProveedorBean.nuevoProveedor.segundoApellidoProveedor}" />
+							<h:outputLabel for="telefono" value="Teléfono:" />
+							<p:inputText id="telefono"
+								value="#{ProveedorBean.nuevoProveedor.telefono}" required="true" />
+							<h:outputLabel for="ciudad" value="Ciudad:" />
+							<p:inputText id="ciudad"
+								value="#{ProveedorBean.nuevoProveedor.ciudad}" required="true" />
+							<h:outputLabel for="pais" value="País:" />
+							<p:inputText id="pais"
+								value="#{ProveedorBean.nuevoProveedor.pais}" required="true" />
+						</h:panelGrid>
+						<p:separator />
+						<p:commandButton value="Guardar"
+							actionListener="#{ProveedorBean.crearProveedor}"
+							update=":proveedorForm"
+							oncomplete="PF('dlgNuevoProveedor').hide()"
+							styleClass="ui-button-success" />
+					</p:dialog>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
